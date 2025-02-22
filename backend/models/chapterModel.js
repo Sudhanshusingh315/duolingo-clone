@@ -12,10 +12,10 @@ const chapterSchema = new Schema({
     description: {
         type: String,
     },
-    lessons: [
+    quiz: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Lesson",
+            ref: "Quiz",
         },
     ],
 });

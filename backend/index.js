@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const configEnv = require("./constants");
+const { configEnv } = require("./constants");
 console.log("configenv", configEnv);
 
 const app = express();
@@ -16,16 +16,19 @@ async function main() {
     console.log("mongoose connected");
 }
 // Import Routes
-const userRoutes = require("./routes/userRoutes");
-const courseRoutes = require("./routes/courseRoutes");
-const lessonRoutes = require("./routes/lessonRoutes");
-const quizRoutes = require("./routes/quizRoutes");
+
+const courseRoutes = require("./routes/course.route");
+const languageRoutes = require("./routes/language.route");
+const chapterRoutes = require("./routes/chatper.route");
+// const userRoutes = require("./routes/userRoutes");
+// const quizRoutes = require("./routes/quizRoutes");
 
 // Use Routes
-app.use("/api/users", userRoutes);
+// app.use("/api/users", userRoutes);
+app.use("/api/language", languageRoutes);
 app.use("/api/courses", courseRoutes);
-app.use("/api/lessons", lessonRoutes);
-app.use("/api/quizzes", quizRoutes);
+app.use("/api/chapter", chapterRoutes);
+// app.use("/api/quizzes", quizRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;

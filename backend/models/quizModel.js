@@ -3,9 +3,9 @@ const { difficultyLevel, lessonType } = require("../constants");
 const { Schema } = mongoose;
 
 const quizSchema = new Schema({
-    lessonId: {
+    chapterId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Lesson",
+        ref: "Chapter",
     },
     type: {
         type: String,

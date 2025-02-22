@@ -6,6 +6,7 @@ const courseSchema = new Schema({
     languageId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Language",
+        require: true,
     },
     name: {
         type: String,
