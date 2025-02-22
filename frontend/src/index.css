@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+.border {
+    /* to help giving borders */
+    border: 2px solid red;
+}
+
+.horizontal-border {
+    @apply border border-solid border-gray-400;
+
+}
+
+.button {
+    @apply rounded-xl uppercase tracking-wider font-bold  min-w-max px-6 py-4 cursor-pointer transition-all;
+}
+
+button[variant="default"] {
+    @apply bg-white text-black border-slate-200 border-2 border-b-4 active:border-b-2 hover:bg-slate-100 text-slate-500;
+}
+
+button[variant="primary"] {
+    @apply bg-sky-400 text-white hover:bg-sky-400/90 border-sky-500 border-b-4 active:border-b-0 outline-0;
+}
+
+button[variant="primary-outline"] {
+    @apply bg-white text-sky-500 hover:bg-slate-100;
+}
+
+button[variant="secondary"] {
+    @apply bg-green-500 text-white hover:bg-green-400/90 border-green-600 border-b-4 active:border-b-0 outline-0;
+}
+
+button[variant="secondary-outline"] {
+    @apply bg-white text-green-500 hover:bg-slate-100;
+}
+
+button[variant="danger"] {
+    @apply bg-rose-500 text-white hover:bg-rose-400/90 border-rose-600 border-b-4 active:border-b-0 outline-0;
+}
+
+button[variant="danger-outline"] {
+    @apply bg-white text-rose-500 hover:bg-slate-100;
+}
+
+button[variant="super"] {
+    @apply bg-indigo-500 text-white hover:bg-indigo-400/90 border-indigo-600 border-b-4 active:border-b-0 outline-0;
+}
+
+button[variant="super-outline"] {
+    @apply bg-white text-indigo-500 hover:bg-slate-100;
+}
+
+button[variant="ghost"] {
+    @apply bg-transparent text-slate-500 border-transparent border-0 hover:bg-slate-100;
+}
+
+button[variant="sidebar"] {
+    @apply bg-transparent text-slate-500 border-transparent border-2 border-transparent hover:bg-slate-100 transition-none;
+}
+
+button[variant="sidebar-outline"] {
+    @apply bg-sky-500/15 text-sky-500 border-sky-300 border-2 hover:bg-sky-500/20 transition-none;
+}
+
+button[variant="primary"] {
+}
+
+.container {
+    border: 2px solid red;
+    width: 700px;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container > * {
+    flex: 1;
+    width: 160px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+.test {
+    background-color: hsl(350, 100%, 88%);
+    margin-top: 1rem;
+}
+
+.test2 {
+    background-color: hsl(350, 90%, 78%);
+    position: relative;
+    left: -80px;
+    margin-top: 1rem;
+}
+.test3 {
+    background-color: hsl(350, 80%, 68%);
+    position: relative;
+    left: -110px;
+    margin-top: 1rem;
+}
+
+.test4 {
+    background-color: hsl(350, 70%, 58%);
+    position: relative;
+    left: -80px;
+    margin-top: 1rem;
+}
+.test5 {
+    background-color: hsl(350, 60%, 48%);
+    position: relative;
+    left: 0;
+    margin-bottom: 1rem;
+}
