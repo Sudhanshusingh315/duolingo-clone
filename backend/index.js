@@ -3,7 +3,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const { configEnv } = require("./constants");
-console.log("configenv", configEnv);
 
 const app = express();
 app.use(express.json());
@@ -22,6 +21,10 @@ const languageRoutes = require("./routes/language.route");
 const chapterRoutes = require("./routes/chatper.route");
 // const userRoutes = require("./routes/userRoutes");
 // const quizRoutes = require("./routes/quizRoutes");
+
+app.get("/", (req, res) => {
+    res.json({ working: "fine" });
+});
 
 // Use Routes
 // app.use("/api/users", userRoutes);
