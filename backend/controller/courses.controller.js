@@ -31,7 +31,6 @@ const addCourse = async (req, res) => {
 };
 
 const getAllCourse = async (req, res) => {
-    console.log(req.params);
     let { langId } = req.params;
     try {
         if (!langId) {

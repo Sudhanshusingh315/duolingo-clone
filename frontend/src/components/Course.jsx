@@ -1,5 +1,4 @@
 import LessonButton from "./LessonButton";
-
 export default function Course({
     languageId,
     name,
@@ -7,8 +6,13 @@ export default function Course({
     difficultyLevel,
     chapters,
 }) {
+
+
     // gonna get the title here
     // gonna get the chapters here so render those from here.
+
+
+
     return (
         <>
             <div className="flex items-center">
@@ -21,10 +25,10 @@ export default function Course({
 
             {/* chapter buttons */}
             <div className="flex flex-col items-center py-4">
-                {chapters?.map((_, index) => {
+                {chapters?.map((lessonId, index) => {
                     // always 8
 
-                    return <LessonButton key={index} index={index} />;
+                    return <LessonButton lessonId={lessonId} key={index} index={index} />;
                 })}
             </div>
         </>

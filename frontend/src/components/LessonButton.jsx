@@ -1,4 +1,6 @@
-export default function LessonButton({index}) {
+import { Link } from "react-router";
+
+export default function LessonButton({ lessonId, index }) {
     const cycleLenght = 8;
     const cycleIndex = index % cycleLenght;
     let indentationLevel;
@@ -15,13 +17,20 @@ export default function LessonButton({index}) {
 
     const leftPosition = indentationLevel * 40;
 
+    /*
+        each button is lesson that contains multiple
+        quizes
+
+    */
+
     return (
-        <p
+        <Link
+            to={`/lessonQuiz/${lessonId}`}
             key={index}
-            className="mt-4 w-20 aspect-square rounded-full bg-green-400 relative border-b-6 border-b-green-600 hover:bg-green-600 active:bg-green-500 active:border-b-0"
+            className="mt-4 w-20 aspect-square rounded-full bg-green-400 relative border-b-6 border-b-green-600 cursor-pointer active:bg-green-500 active:border-b-0"
             style={{
                 right: `${leftPosition}px`,
             }}
-        ></p>
+        ></Link>
     );
 }

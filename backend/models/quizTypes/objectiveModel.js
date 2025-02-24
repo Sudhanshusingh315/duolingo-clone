@@ -13,7 +13,10 @@ const objectiveSchema = new Schema({
                 type: String,
                 required: true,
             },
-            isCorrect: Boolean,
+            isCorrect: {
+                type: Boolean,
+                required: true,
+            },
         },
     ],
 });

@@ -20,7 +20,7 @@ const courseRoutes = require("./routes/course.route");
 const languageRoutes = require("./routes/language.route");
 const chapterRoutes = require("./routes/chatper.route");
 // const userRoutes = require("./routes/userRoutes");
-// const quizRoutes = require("./routes/quizRoutes");
+const quizRoutes = require("./routes/quiz.route");
 
 app.get("/", (req, res) => {
     res.json({ working: "fine" });
@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
 app.use("/api/language", languageRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/chapter", chapterRoutes);
-// app.use("/api/quizzes", quizRoutes);
+app.use("/api/quizzes", quizRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;
