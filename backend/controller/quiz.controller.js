@@ -1,28 +1,5 @@
-const Quiz = require("../models/quizModel");
 const Match = require("../models/quizTypes/matchModel");
 const Objective = require("../models/quizTypes/objectiveModel");
-
-const quiz = async (req, res) => {
-    const { chapterId, type, data } = req.body;
-    let quiz;
-    try {
-        quiz = await Quiz.create({
-            chapterId,
-            type,
-            data,
-        });
-        return res.status(201).json({
-            success: true,
-            message: "Quiz added successfully",
-        });
-    } catch (err) {
-        console.log("error", err.message);
-        return res.status(401).json({
-            success: false,
-            message: "Could not create Quiz",
-        });
-    }
-};
 
 const addObjectiveQuiz = async (req, res) => {
     const { question, options } = req.body;
@@ -81,7 +58,6 @@ const addMatchQuiz = async (req, res) => {
 };
 
 module.exports = {
-    quiz,
     addObjectiveQuiz,
     addMatchQuiz,
 };

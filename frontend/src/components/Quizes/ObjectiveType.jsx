@@ -1,7 +1,7 @@
 import MatchGrid from "./MatchGrid";
 
 const testData = {
-    question: "i was born in 1967 ?",
+    question: "i was born in 1967 ? ",
 
     options: [
         {
@@ -25,8 +25,8 @@ const testData = {
 export const ObjectiveType = () => {
     return (
         <div>
-            <h2>{testData?.question}</h2>
-            <div className="grid gap-0-2 ">
+            <h2 className="text-2xl mb-6 text-center text-white">{testData?.question}</h2>
+            <div className="grid gap-2 ">
                 {testData?.options?.map(({ text, isCorrect }, index) => {
                     return (
                         <button
@@ -39,7 +39,6 @@ export const ObjectiveType = () => {
                     );
                 })}
             </div>
-            <MatchGrid />
         </div>
     );
 };
