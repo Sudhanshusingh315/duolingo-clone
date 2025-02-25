@@ -6,12 +6,8 @@ export default function Course({
     difficultyLevel,
     chapters,
 }) {
-
-
     // gonna get the title here
     // gonna get the chapters here so render those from here.
-
-
 
     return (
         <>
@@ -26,9 +22,13 @@ export default function Course({
             {/* chapter buttons */}
             <div className="flex flex-col items-center py-4">
                 {chapters?.map((lessonId, index) => {
-                    // always 8
-
-                    return <LessonButton lessonId={lessonId} key={index} index={index} />;
+                    return (
+                        <LessonButton
+                            lessonId={lessonId}
+                            key={index}
+                            index={index}
+                        />
+                    );
                 })}
             </div>
         </>
