@@ -1,40 +1,47 @@
-import MatchGrid from "./MatchGrid";
+import { useState } from "react";
 
-const testData = {
-    question: "i was born in 1967 ? ",
-
-    options: [
-        {
-            text: "for",
-            isCorrect: false,
-        },
-        {
-            text: "since",
-            isCorrect: false,
-        },
-        {
-            text: "ago",
-            isCorrect: false,
-        },
-        {
-            text: "in",
-            isCorrect: true,
-        },
-    ],
-};
-export const ObjectiveType = () => {
+export const ObjectiveType = ({
+    data,
+    setSelectedAnswerData,
+    setSelectedObjectiveOptions,
+    selectedObjectiveOption,
+    value,
+    setValue,
+    updatetest,
+}) => {
+    const [test, setTest] = useState();
+    const { question, options, quizType, id } = data;
+    const handleSelect = (data) => {
+        setTest(data?.index);
+        setSelectedAnswerData((prev) => data);
+        setSelectedObjectiveOptions(data?.index);
+    };
+    console.log("calling from child", selectedObjectiveOption);
     return (
         <div>
-            <h2 className="text-2xl mb-6 text-center text-white">{testData?.question}</h2>
+            <h2 className="text-2xl mb-6 text-center text-white">{question}</h2>
             <div className="grid gap-2 ">
-                {testData?.options?.map(({ text, isCorrect }, index) => {
+                {options?.map(({ text, isCorrect }, index) => {
                     return (
                         <button
                             key={index}
                             className="button"
-                            variant="primary-outline"
+                            variant={
+                                selectedObjectiveOption === index
+                                    ? "primary-outline"
+                                    : "primary"
+                            }
+                            onClick={() => {
+                                const info = {
+                                    quizId: id,
+                                    quizType,
+                                    selectedOption: options[index],
+                                    index,
+                                };
+                                handleSelect(info);
+                            }}
                         >
-                            text
+                            {text}
                         </button>
                     );
                 })}

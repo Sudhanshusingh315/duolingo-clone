@@ -29,6 +29,7 @@ const getChapterPipeline = (id) => {
                     {
                         $set: {
                             quizType: lessonType.OBJECTIVE,
+                            id: "$_id",
                         },
                     },
                     {
@@ -47,6 +48,7 @@ const getChapterPipeline = (id) => {
                     {
                         $set: {
                             quizType: lessonType.MATCH,
+                            id: "$_id",
                         },
                     },
                     {

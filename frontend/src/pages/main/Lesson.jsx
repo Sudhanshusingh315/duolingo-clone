@@ -10,6 +10,13 @@ export default function Lesson() {
     const [quizData, setQuizData] = useState([]);
     const [quizDataForStepForm, setQuizDataForStepForm] = useState([]);
     const { step, steps, next } = useMultiStep(quizDataForStepForm);
+
+    // state determining the answers;
+    const [selectedObjectiveOption, setSelectedObjectiveOptions] = useState();
+    const [selectedAnswerData, setSelectedAnswerData] = useState();
+    const [answer, setAnswer] = useState(null);
+    const [nextQuestion, setnextQuestion] = useState(false);
+    const [value, setValue] = useState("hey");
     useEffect(() => {
         (async () => {
             const { data } = await axios({
@@ -24,31 +31,116 @@ export default function Lesson() {
         // make the api call with the lesson Id, get the Quizes with useSelector
         // and start the quiz, with useMultiStep custom hook
     }, []);
-    console.log("quiz data for steo form", quizDataForStepForm);
+    // useEffect(() => {
+    //     console.log("code won't run for updatetest");
+    //     if (!quizData.length) {
+    //         return;
+    //     }
+    //     quizData?.map((data) => {
+    //         switch (data?.quizType) {
+    //             case lessonType.OBJECTIVE:
+    //                 setQuizDataForStepForm((prev) => {
+    //                     return [
+    //                         ...prev,
+    //                         <ObjectiveType
+    //                             setSelectedAnswerData={setSelectedAnswerData}
+    //                             selectedObjectiveOption={
+    //                                 selectedObjectiveOption
+    //                             }
+    //                             setSelectedObjectiveOptions={
+    //                                 setSelectedObjectiveOptions
+    //                             }
+    //                             data={data}
+    //                             key={data?.id}
+    //                             value={value}
+    //                             setValue={setValue}
+    //                             updatetest={updatetest}
+    //                         />,
+    //                     ];
+    //                 });
+    //                 break;
+    //             case lessonType.MATCH:
+    //                 setQuizDataForStepForm((prev) => {
+    //                     return [...prev, <MatchGrid data={data} />];
+    //                 });
+    //                 break;
+    //             default:
+    //                 break;
+    //         }
+    //     });
+    //     return;
+    // }, [quizData]);
     useEffect(() => {
         if (!quizData.length) {
             return;
         }
-        quizData?.forEach((data) => {
-            switch (data?.quizType) {
-                case lessonType.OBJECTIVE:
-                    setQuizDataForStepForm((prev) => {
-                        return [...prev, <ObjectiveType data={data} />];
-                    });
-                    break;
-                case lessonType.MATCH:
-                    setQuizDataForStepForm((prev) => {
-                        return [...prev, <MatchGrid data={data} />];
-                    });
-                    break;
-                default:
-                    break;
-            }
-        });
-        return;
-    }, [quizData]);
+        setQuizDataForStepForm(
+            quizData.map((data) => {
+                switch (data?.quizType) {
+                    case lessonType.OBJECTIVE:
+                        return (
+                            <ObjectiveType
+                                setSelectedAnswerData={setSelectedAnswerData}
+                                selectedObjectiveOption={
+                                    selectedObjectiveOption
+                                }
+                                setSelectedObjectiveOptions={
+                                    setSelectedObjectiveOptions
+                                }
+                                data={data}
+                                key={data.id}
+                                value={value}
+                                setValue={setValue}
+                                updatetest={updatetest}
+                            />
+                        );
+                    case lessonType.MATCH:
+                        return <MatchGrid data={data} key={data.id} />;
+                    default:
+                        return null;
+                }
+            })
+        );
+    }, [quizData, selectedObjectiveOption, value]);
 
-    console.log(quizData);
+    const checkForRightAnswer = () => {
+        if (!selectedAnswerData) return;
+        const { quizType, quizId, selectedOption, index } = selectedAnswerData;
+        switch (quizType) {
+            case lessonType.OBJECTIVE:
+                const quizThatBelongsToId = quizData?.filter(({ id }) => {
+                    return id === quizId;
+                });
+                if (quizThatBelongsToId[0].options[index].isCorrect) {
+                    setAnswer(true);
+                } else {
+                    setAnswer(false);
+                }
+                break;
+
+            default:
+                break;
+        }
+        setnextQuestion(true);
+    };
+    const moveToNextQuestion = () => {
+        next();
+
+        // resetting the state for next Question
+        setnextQuestion(false);
+        setSelectedAnswerData({});
+        setSelectedObjectiveOptions(null);
+        setAnswer(null);
+    };
+    const updatetest = (value) => {
+        setValue((prev) => {
+            return value;
+        });
+        // setSelectedObjectiveOptions(value);
+    };
+
+    console.log("selected general option", selectedObjectiveOption);
+    console.log("value", value);
     /*
         this page will render out all the 
         1) Quiz app normal DUH!!!
@@ -58,11 +150,25 @@ export default function Lesson() {
 
     return (
         <div className="border w-full min-h-screen flex justify-center items-center bg-emerald-950">
-            <div className="border p-4 grid gap-2">{step}</div>
-            <div className="flex flex-col justify-center items-center w-full text-white fixed bottom-0 bg-emerald-900 p-4">
+            <div className="border p-3 grid gap-2">{step}</div>
+            <div
+                className={`flex flex-col justify-center items-center w-full text-white fixed bottom-0 bg-emerald-900 py-6 px-4`}
+            >
                 <p>Excellent (make this pretty hehe)</p>
-                <button className="button w-full" variant="secondary" onClick={next}>
-                    continue
+                <button
+                    className="button w-full"
+                    variant={
+                        answer === null
+                            ? "secondary-outline"
+                            : answer
+                            ? "secondary"
+                            : "danger"
+                    }
+                    onClick={
+                        nextQuestion ? moveToNextQuestion : checkForRightAnswer
+                    }
+                >
+                    {nextQuestion ? "next" : "continue"}
                 </button>
             </div>
         </div>
