@@ -1,16 +1,18 @@
 const mongoose = require("mongoose");
+const { lessonType } = require("../../constants");
 const { Schema } = mongoose;
 
 const dragAndDropSchema = new Schema({
-    statement: {
-        type: String,
-        required: true,
-    },
-    options: [
+    categories: [{ type: String, required: true }],
+    words: [
         {
-            object: { type: String, required: true },
-            bucketOptions: [{ type: String, required: true }],
-            correctOrder: [{ type: String, required: true }],
+            text: {
+                type: String,
+            },
+            category: {
+                type: String,
+            },
+            _id: false,
         },
     ],
 });

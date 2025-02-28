@@ -80,9 +80,9 @@ useEffect(()=>{
 
     console.log(selectedPair);
     return (
-        <>
-            <h2>{statement}</h2>
-            <div className="border w-80 min-h-72 flex text items-stretch gap-2">
+        <div className="grid gap-2">
+            <h2 className="text-center font-semibold text-white text-xl">{statement}</h2>
+            <div className="w-80 min-h-72 flex text items-stretch gap-2">
                 {/* right */}
                 <div className="flex-1 grid justify-center items-start gap-2">
                     {rightGrid?.map((element, index) => {
@@ -149,6 +149,6 @@ useEffect(()=>{
                     })}
                 </div>
             </div>
-        </>
+        </div>
     );
 }

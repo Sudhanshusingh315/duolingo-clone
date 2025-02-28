@@ -5,6 +5,8 @@ import { constantsConfig, lessonType } from "../../constants";
 import useMultiStep from "../../../hooks/useMultiStep";
 import { ObjectiveType } from "../../components/Quizes/ObjectiveType";
 import MatchGrid from "../../components/Quizes/MatchGrid";
+import MemoryMatch from "../../components/Quizes/MemoryMatch";
+import DragDropSortGame from "../../components/Quizes/DragAndDrop";
 export default function Lesson() {
     let { lessonId } = useParams();
     const [quizData, setQuizData] = useState([]);
@@ -96,13 +98,18 @@ export default function Lesson() {
                         );
                     case lessonType.MATCH:
                         return <MatchGrid data={data} key={data.id} />;
+
+                    case lessonType.MEMORYGAME:
+                        return <MemoryMatch data={data} />;
+                    case lessonType.DRAGANDDROP:
+                        return <DragDropSortGame data={data} />;
                     default:
                         return null;
                 }
             })
         );
     }, [quizData, selectedObjectiveOption, value]);
-
+    console.log("quiz data",quizData);
     const checkForRightAnswer = () => {
         if (!selectedAnswerData) return;
         const { quizType, quizId, selectedOption, index } = selectedAnswerData;
@@ -150,7 +157,7 @@ export default function Lesson() {
 
     return (
         <div className="border w-full min-h-screen flex justify-center items-center bg-emerald-950">
-            <div className="border p-3 grid gap-2">{step}</div>
+            {step}
             <div
                 className={`flex flex-col justify-center items-center w-full text-white fixed bottom-0 bg-emerald-900 py-6 px-4`}
             >

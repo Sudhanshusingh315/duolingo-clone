@@ -58,15 +58,66 @@ const getChapterPipeline = (id) => {
                 as: "matchesData",
             },
         },
-
         {
-            $set: {
-                id: "$_id",
-                quiz: { $concatArrays: ["$objectiveQuiz", "$matchesData"] },
+            $lookup: {
+                from: "memorygames",
+                localField: "quiz",
+                foreignField: "_id",
+                pipeline: [
+                    {
+                        $set: {
+                            quizType: lessonType.MEMORYGAME,
+                            id: "$_id",
+                        },
+                    },
+                    {
+                        $unset: ["_id", "__v"],
+                    },
+                ],
+                as: "memoryMatchData",
             },
         },
         {
-            $unset: ["matchesData", "objectiveQuiz", "__v", "_id"],
+            $lookup: {
+                from: "draganddrops",
+                localField: "quiz",
+                foreignField: "_id",
+                pipeline: [
+                    {
+                        $set: {
+                            quizType: lessonType.DRAGANDDROP,
+                            id: "$_id",
+                        },
+                    },
+                    {
+                        $unset: ["_id", "__v"],
+                    },
+                ],
+                as: "dragAndDrop",
+            },
+        },
+        {
+            $set: {
+                id: "$_id",
+                quiz: {
+                    $concatArrays: [
+                        "$objectiveQuiz",
+                        "$matchesData",
+                        "$memoryMatchData",
+                        "$dragAndDrop",
+                    ],
+                },
+            },
+        },
+        {
+            $unset: [
+                "matchesData",
+                "objectiveQuiz",
+                "memoryMatchData",
+                "dragAndDrop",
+                "__v",
+                "_id",
+            ],
         },
     ];
 };

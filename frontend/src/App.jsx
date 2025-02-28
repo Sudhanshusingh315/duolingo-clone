@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "./pages/main/Main";
 import Lesson from "./pages/main/Lesson";
 import { ObjectiveType } from "./components/Quizes/ObjectiveType";
-import MemoryMatch from "./components/Quizes/MemoryMatch";
+import DragDropSortGame from "./components/Quizes/DragAndDrop";
 
 function App() {
     return (
@@ -17,7 +17,7 @@ function App() {
 
                 {/* todo later render these through only multistepper from */}
                 <Route path="/objective" element={<ObjectiveType />} />
-                <Route path="/memory" element={<MemoryMatch />} />
+                <Route path="/drag" element={<DragDropSortGame />} />
             </Routes>
         </BrowserRouter>
     );
