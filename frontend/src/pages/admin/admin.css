@@ -1,0 +1,35 @@
+body{
+    background-color: #333;
+}
+.grid {
+    display: grid;
+    grid-template-columns: 5rem auto;
+    transition: all 200ms ease-in-out;
+    width: 90%;
+    margin-inline: auto;
+    max-width: 1124px;
+}
+
+.sidebar {
+    height: 100vh;
+    background-color: pink;
+    display: grid;
+    align-content: start;
+    gap:.875rem;   
+}
+
+.sidebar > * {
+    padding:1rem;
+    background-color: white;
+    color:green
+}
+
+.main-content {
+    background-color: aqua;
+    grid-column-start: 2;
+    grid-column-end: -1;
+}
+
+.grid:has(.sidebar:hover) {
+    grid-template-columns: 10rem auto;
+}
