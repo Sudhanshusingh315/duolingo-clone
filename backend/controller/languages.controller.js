@@ -1,5 +1,7 @@
 const Language = require("../models/languageModel");
 
+// todo: validate all the requests
+
 const addLanguage = async (req, res) => {
     const { name, code } = req.body;
 
@@ -27,6 +29,28 @@ const addLanguage = async (req, res) => {
     }
 };
 
+const getLanguages = async (req, res) => {
+    try {
+        const languages = await Language.find({});
+        if (!languages) {
+            throw new Error("Couldn't get languages at the moment");
+        }
+
+        return res.status(201).json({
+            success: true,
+            messgae: "Languages loaded successfully",
+            data: languages,
+        });
+    } catch (error) {
+        console.log("err", error);
+        return res.status(401).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
 module.exports = {
     addLanguage,
+    getLanguages,
 };

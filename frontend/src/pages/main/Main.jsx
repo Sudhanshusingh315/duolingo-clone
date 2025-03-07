@@ -4,7 +4,7 @@ import heart from "../../assets/red-heart.svg";
 import ReactCountryFlag from "react-country-flag";
 import Course from "../../components/Course";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCourseByLang } from "../../features/courseMaterial";
+import { fetchCourseByLang } from "../../features/course/courseMaterial";
 
 export default function Main() {
     const [testArray, newTestArray] = useState(Array(5).fill(""));

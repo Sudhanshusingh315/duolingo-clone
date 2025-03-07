@@ -10,7 +10,7 @@ export default function Admin() {
                 <div>Chapters</div>
                 <div>Quizes</div>
             </div>
-            <div className="main-content">
+            <div className="main-content bg-emerald-950 text-white">
                 <Outlet />
 
             </div>

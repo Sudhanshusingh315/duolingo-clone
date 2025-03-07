@@ -1,5 +1,5 @@
 import axios from "axios";
-import { constantsConfig } from "../constants";
+import { constantsConfig } from "../../constants";
 export const getCourses = async (langId) => {
     try {
         const result = await axios({

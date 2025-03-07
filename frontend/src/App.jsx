@@ -4,6 +4,9 @@ import Main from "./pages/main/Main";
 import Lesson from "./pages/main/Lesson";
 import Admin from "./pages/admin/Admin";
 import Test from "./pages/admin/Test";
+import Language from "./pages/admin/sections/Language";
+import Course from "./components/Course";
+import CourseSection from "./pages/admin/sections/CourseSection";
 
 function App() {
     return (
@@ -11,8 +14,8 @@ function App() {
             <Routes>
                 {/* <Route path="/" element={} /> */}
                 <Route path="/admin" element={<Admin />}>
-                    <Route path="test" element={<div>lang</div>} />
-                    <Route path="courses" element={<div>courses</div>} />
+                    <Route path="test" element={<Language />} />
+                    <Route path="courses" element={<CourseSection />} />
                     <Route
                         path="/admin/chapters"
                         element={<div>chapters</div>}

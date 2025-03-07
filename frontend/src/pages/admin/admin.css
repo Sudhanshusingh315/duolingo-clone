@@ -25,7 +25,6 @@ body{
 }
 
 .main-content {
-    background-color: aqua;
     grid-column-start: 2;
     grid-column-end: -1;
 }
