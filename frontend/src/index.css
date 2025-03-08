@@ -84,33 +84,4 @@ button[variant="primary"] {
     border-radius: 50%;
 }
 
-.test {
-    background-color: hsl(350, 100%, 88%);
-    margin-top: 1rem;
-}
 
-.test2 {
-    background-color: hsl(350, 90%, 78%);
-    position: relative;
-    left: -80px;
-    margin-top: 1rem;
-}
-.test3 {
-    background-color: hsl(350, 80%, 68%);
-    position: relative;
-    left: -110px;
-    margin-top: 1rem;
-}
-
-.test4 {
-    background-color: hsl(350, 70%, 58%);
-    position: relative;
-    left: -80px;
-    margin-top: 1rem;
-}
-.test5 {
-    background-color: hsl(350, 60%, 48%);
-    position: relative;
-    left: 0;
-    margin-bottom: 1rem;
-}

@@ -31,7 +31,16 @@ const addLanguage = async (req, res) => {
 
 const getLanguages = async (req, res) => {
     try {
-        const languages = await Language.find({});
+        const languages = await Language.aggregate([
+            {
+                $set: {
+                    id: "$_id",
+                },
+            },
+            {
+                $unset: ["_id", "__v"],
+            },
+        ]);
         if (!languages) {
             throw new Error("Couldn't get languages at the moment");
         }
