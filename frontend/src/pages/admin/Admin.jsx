@@ -7,12 +7,11 @@ export default function Admin() {
             <div className="sidebar">
                 <Link to="/admin/test">Language</Link>
                 <Link to="/admin/courses">Courses</Link>
-                <div>Chapters</div>
-                <div>Quizes</div>
+                <Link to="/admin/chapters">Chapters</Link>
+                <Link to="/admin/quiz">Quizes</Link>
             </div>
             <div className="main-content bg-emerald-950 text-white">
                 <Outlet />
-
             </div>
         </div>
     );

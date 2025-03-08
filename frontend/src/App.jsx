@@ -7,6 +7,8 @@ import Test from "./pages/admin/Test";
 import Language from "./pages/admin/sections/Language";
 import Course from "./components/Course";
 import CourseSection from "./pages/admin/sections/CourseSection";
+import ChapterSection from "./pages/admin/sections/ChaptersSection";
+import QuizSection from "./pages/admin/sections/QuizSection";
 
 function App() {
     return (
@@ -16,10 +18,8 @@ function App() {
                 <Route path="/admin" element={<Admin />}>
                     <Route path="test" element={<Language />} />
                     <Route path="courses" element={<CourseSection />} />
-                    <Route
-                        path="/admin/chapters"
-                        element={<div>chapters</div>}
-                    />
+                    <Route path="chapters" element={<ChapterSection />} />
+                    <Route path="quiz" element={<QuizSection />} />
                 </Route>
                 <Route path="/lesson" element={<Main />} />
 

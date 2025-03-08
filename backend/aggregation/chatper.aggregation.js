@@ -122,6 +122,20 @@ const getChapterPipeline = (id) => {
     ];
 };
 
+const getAllChaptersPipeline = () => {
+    return [
+        {
+            $set: {
+                id: "$_id",
+            },
+        },
+        {
+            $unset: ["_id", "__v"],
+        },
+    ];
+};
+
 module.exports = {
     getChapterPipeline,
+    getAllChaptersPipeline,
 };

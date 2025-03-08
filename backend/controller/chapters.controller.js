@@ -1,6 +1,9 @@
 const { default: mongoose } = require("mongoose");
 const Chapter = require("../models/chapterModel");
-const { getChapterPipeline } = require("../aggregation/chatper.aggregation");
+const {
+    getChapterPipeline,
+    getAllChaptersPipeline,
+} = require("../aggregation/chatper.aggregation");
 
 const addChapter = async (req, res) => {
     const { courseId, title, description } = req.body;
@@ -50,9 +53,18 @@ const getChapter = async (req, res) => {
     }
 };
 
+const getAllChapters = async (req, res) => {
+    const chapters = await Chapter.aggregate(getAllChaptersPipeline());
+    return res.status(201).json({
+        success: true,
+        data: chapters,
+    });
+};
+
 module.exports = {
     addChapter,
     getChapter,
+    getAllChapters,
     // addMultipleChpaters,
     // getChapter,
     // DeleteMultipleChapters
