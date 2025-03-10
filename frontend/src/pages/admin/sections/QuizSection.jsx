@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import "./styles.css";
 import { Autocomplete, TextField } from "@mui/material";
 import axios from "axios";
-import { constantsConfig } from "../../../constants";
+import { constantsConfig, lessonType } from "../../../constants";
 import ReactCountryFlag from "react-country-flag";
 export default function QuizSection() {
+    const [test, setTest] = useState({});
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentComponent, setCurrentComponent] = useState([
-        <Test1 />,
-        <Test2 />,
-        <Test3 />,
-        <Test4 />,
+        <Test1 test={test} setTest={setTest} />,
+        <Test2 test={test} setTest={setTest} />,
+        <Test3 test={test} setTest={setTest} />,
+        <Test4 test={test} setTest={setTest} />,
     ]);
     const steps = [];
     for (let i = 0; i < 4; i++) {
@@ -24,6 +25,7 @@ export default function QuizSection() {
             </div>
         );
     }
+    console.log("test data", test);
     const handleNext = () => {
         if (currentIndex >= steps?.length - 1) return;
         setCurrentIndex((prev) => prev + 1);
@@ -71,9 +73,10 @@ export default function QuizSection() {
     );
 }
 
-const Test1 = () => {
+const Test1 = ({ test, setTest }) => {
     const [availableLanguages, setAvailableLanguages] = useState([]);
     const [language, setLanguage] = useState("");
+
     useEffect(() => {
         (async () => {
             const {
@@ -88,12 +91,13 @@ const Test1 = () => {
     const handleChange = (e, value) => {
         console.log("value", value);
         setLanguage(value);
+        setTest((prev) => {
+            return { ...prev, language: value };
+        });
     };
     return (
         <div className="font-bold text-yellow-700">
-            <div className="mb-4 text-2xl">
-                Select the Language you from below
-            </div>
+            <h1 className="mb-4 text-2xl">Select the Language from below</h1>
             <Autocomplete
                 options={availableLanguages}
                 getOptionLabel={(option) => option?.name || ""}
@@ -118,15 +122,71 @@ const Test1 = () => {
     );
 };
 
-const Test2 = () => {
-    return <div className="font-bold text-yellow-700 ">Component 2</div>;
+const Test2 = ({ setTest }) => {
+    const [selectChapter, setSelectChaper] = useState();
+    const [chapter, setChapter] = useState();
+    useEffect(() => {
+        (async () => {
+            const {
+                data: { data },
+            } = await axios({
+                url: `${constantsConfig.BASE_URL}/api/chapter/get-chapters`,
+            });
+            setSelectChaper(data);
+        })();
+    }, []);
+    console.log("all the chaptes", selectChapter);
+    const handleChange = (e, value) => {
+        setTest((prev) => {
+            return { ...prev, chapter: value };
+        });
+    };
+    return (
+        <div className="font-bold text-yellow-700 ">
+            {/* add the languages course */}
+            <h1 className="mb-4 text-2xl">Select the Chapter from below</h1>
+            <Autocomplete
+                options={selectChapter}
+                getOptionLabel={(option) => {
+                    return option?.title || "";
+                }}
+                renderInput={(params) => {
+                    return <TextField {...params} label="Chapter" />;
+                }}
+                value={chapter}
+                onChange={handleChange}
+            />
+        </div>
+    );
 };
-const Test3 = () => {
-    return <div className="font-bold text-yellow-700 ">Component 3</div>;
+const Test3 = ({ setTest }) => {
+    const lessonTypeValue = Object.keys(lessonType);
+    const [value, setValue] = useState();
+    const handleChange = (e, value) => {
+        setTest((prev) => {
+            return { ...prev, lessonType: value };
+        });
+    };
+    return (
+        <div className="font-bold text-yellow-700 ">
+            <h1 className="mb-4 text-2xl">Select the Chapter from below</h1>
+            <Autocomplete
+                options={lessonTypeValue}
+                getOptionLabel={(option) => {
+                    return option;
+                }}
+                renderInput={(params) => {
+                    return <TextField {...params} label="Quiz type" />;
+                }}
+                value={value}
+                onChange={handleChange}
+            />
+        </div>
+    );
 };
-const Test4 = () => {
-    return <div className="font-bold text-yellow-700 ">Component 4</div>;
-};
-const test5 = () => {
-    return <div className="font-bold text-yellow-700 ">Component 5</div>;
+const Test4 = ({ test, setTest }) => {
+    const { lessonType } = test;
+    return <div className="font-bold text-yellow-700 ">
+        
+    </div>;
 };
