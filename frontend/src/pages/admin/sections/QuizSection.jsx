@@ -1,17 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./styles.css";
 import { Autocomplete, TextField } from "@mui/material";
 import axios from "axios";
 import { constantsConfig, lessonType } from "../../../constants";
 import ReactCountryFlag from "react-country-flag";
+import { QuizDataContext } from "../../../context/quizDataContext";
+import ObjectiveTypeQuestion from "../questionTypes/ObjectiveTypeQuestionTemplae";
 export default function QuizSection() {
     const [test, setTest] = useState({});
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentComponent, setCurrentComponent] = useState([
-        <Test1 test={test} setTest={setTest} />,
-        <Test2 test={test} setTest={setTest} />,
-        <Test3 test={test} setTest={setTest} />,
-        <Test4 test={test} setTest={setTest} />,
+        <Test1 />,
+        <Test2 />,
+        <Test3 />,
+        <Test4 />,
     ]);
     const steps = [];
     for (let i = 0; i < 4; i++) {
@@ -73,8 +75,10 @@ export default function QuizSection() {
     );
 }
 
-const Test1 = ({ test, setTest }) => {
+const Test1 = () => {
+    const { data, setData } = useContext(QuizDataContext);
     const [availableLanguages, setAvailableLanguages] = useState([]);
+    console.log("context data", data);
     const [language, setLanguage] = useState("");
 
     useEffect(() => {
@@ -91,7 +95,7 @@ const Test1 = ({ test, setTest }) => {
     const handleChange = (e, value) => {
         console.log("value", value);
         setLanguage(value);
-        setTest((prev) => {
+        setData((prev) => {
             return { ...prev, language: value };
         });
     };
@@ -122,7 +126,8 @@ const Test1 = ({ test, setTest }) => {
     );
 };
 
-const Test2 = ({ setTest }) => {
+const Test2 = () => {
+    const { data, setData } = useContext(QuizDataContext);
     const [selectChapter, setSelectChaper] = useState();
     const [chapter, setChapter] = useState();
     useEffect(() => {
@@ -137,7 +142,7 @@ const Test2 = ({ setTest }) => {
     }, []);
     console.log("all the chaptes", selectChapter);
     const handleChange = (e, value) => {
-        setTest((prev) => {
+        setData((prev) => {
             return { ...prev, chapter: value };
         });
     };
@@ -159,11 +164,12 @@ const Test2 = ({ setTest }) => {
         </div>
     );
 };
-const Test3 = ({ setTest }) => {
-    const lessonTypeValue = Object.keys(lessonType);
+const Test3 = () => {
+    const { data, setData } = useContext(QuizDataContext);
+    const lessonTypeValue = Object.values(lessonType);
     const [value, setValue] = useState();
     const handleChange = (e, value) => {
-        setTest((prev) => {
+        setData((prev) => {
             return { ...prev, lessonType: value };
         });
     };
@@ -184,9 +190,25 @@ const Test3 = ({ setTest }) => {
         </div>
     );
 };
-const Test4 = ({ test, setTest }) => {
-    const { lessonType } = test;
-    return <div className="font-bold text-yellow-700 ">
-        
-    </div>;
+
+const Test4 = () => {
+    const { data, setData } = useContext(QuizDataContext);
+    const { lessonType: quizType } = data;
+    const questionToRender = (type) => {
+        console.log("type is ", type);
+        switch (type) {
+            case lessonType.OBJECTIVE:
+                return <ObjectiveTypeQuestion />;
+                break;
+
+            default:
+                break;
+        }
+    };
+    return (
+        <div className="font-bold text-yellow-700 ">
+            <div>something to show here</div>
+            {questionToRender(quizType)}
+        </div>
+    );
 };
