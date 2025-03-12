@@ -6,6 +6,9 @@ import { constantsConfig, lessonType } from "../../../constants";
 import ReactCountryFlag from "react-country-flag";
 import { QuizDataContext } from "../../../context/quizDataContext";
 import ObjectiveTypeQuestion from "../questionTypes/ObjectiveTypeQuestionTemplae";
+import DragAndDropTypeQuesiton from "../questionTypes/DragAndDropTypeQuestionTemplate";
+import MatchQuestion from "../questionTypes/MatchQuestionTemplate";
+import MemoryMatchQuestion from "../questionTypes/MemoryMatchTypeQuestionTemplate";
 export default function QuizSection() {
     const [test, setTest] = useState({});
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -200,7 +203,12 @@ const Test4 = () => {
             case lessonType.OBJECTIVE:
                 return <ObjectiveTypeQuestion />;
                 break;
-
+            case lessonType.DRAGANDDROP:
+                return <DragAndDropTypeQuesiton />;
+            case lessonType.MATCH:
+                return <MatchQuestion />;
+            case lessonType.MEMORYGAME:
+                return <MemoryMatchQuestion />;
             default:
                 break;
         }
