@@ -24,13 +24,16 @@ export default function QuizSection() {
             <div
                 onClick={() => setCurrentIndex(i)}
                 key={i}
-                className="bg-red-400 w-10 aspect-square rounded-full flex justify-center items-center"
+                className={`${
+                    currentIndex < i ? "bg-gray-500" : "bg-green-500"
+                } w-10 aspect-square rounded-full flex justify-center items-center transition-all 300ms ease-in`}
             >
                 {i + 1}
             </div>
         );
     }
-    console.log("test data", test);
+    const progressBarWidth =
+        (100 / (currentComponent?.length - 1)) * currentIndex;
     const handleNext = () => {
         if (currentIndex >= steps?.length - 1) return;
         setCurrentIndex((prev) => prev + 1);
@@ -42,36 +45,43 @@ export default function QuizSection() {
     console.log("currentIndex", currentIndex);
     console.log("steps", steps);
     return (
-        <div className="w-[90%] bg-white min-h-80 mx-auto py-4 flex flex-col gap-1">
+        <div className="w-[90%] bg-white min-h-80 mx-auto my-4 p-4 flex flex-col gap-1">
             {/* this will be the actual stepper component */}
-            <div className="relative border w-[80%] mx-auto isolate h-full">
-                <div className="flex justify-between items-center mx-auto border ">
+            <div className="relative w-[80%] mx-auto mb-4 isolate h-full">
+                <div className="flex justify-between items-center mx-auto">
                     {steps?.map((element, index) => {
                         return element;
                     })}
-                    {/* top progress bar */}
-                    {/* four setps  */}
                 </div>
-                <div className="progress-bar"></div>
+                <div
+                    className={`progress-bar`}
+                    style={{
+                        width: `${progressBarWidth}%`,
+                    }}
+                ></div>
             </div>
-            <div className="border max-w-[95%] mx-auto mt-2 flex-1">
+            <div className="max-w-[95%] mx-auto mt-2 flex-1">
                 {/* place where component will render */}
                 {currentComponent[currentIndex]}
             </div>{" "}
             <div className="flex gap-1">
-                <button
-                    className="text-black button"
-                    variant="primary"
-                    onClick={handlePrev}
-                >
-                    Back
-                </button>
+                {currentIndex >= 1 && (
+                    <button
+                        className="text-black button"
+                        variant="primary"
+                        onClick={handlePrev}
+                    >
+                        Back
+                    </button>
+                )}
                 <button
                     className="text-black button"
                     variant="primary"
                     onClick={handleNext}
                 >
-                    Next
+                    {currentIndex === currentComponent?.length - 1
+                        ? "Submit the Quiz"
+                        : "Next"}
                 </button>
             </div>
         </div>
@@ -103,7 +113,7 @@ const Test1 = () => {
         });
     };
     return (
-        <div className="font-bold text-yellow-700">
+        <div className="font-bold text-green-700 text-center p-4">
             <h1 className="mb-4 text-2xl">Select the Language from below</h1>
             <Autocomplete
                 options={availableLanguages}
@@ -150,7 +160,7 @@ const Test2 = () => {
         });
     };
     return (
-        <div className="font-bold text-yellow-700 ">
+        <div className="font-bold text-green-700 text-center p-4">
             {/* add the languages course */}
             <h1 className="mb-4 text-2xl">Select the Chapter from below</h1>
             <Autocomplete
@@ -177,7 +187,7 @@ const Test3 = () => {
         });
     };
     return (
-        <div className="font-bold text-yellow-700 ">
+        <div className="font-bold  text-green-700 text-center p-4">
             <h1 className="mb-4 text-2xl">Select the Chapter from below</h1>
             <Autocomplete
                 options={lessonTypeValue}
@@ -202,7 +212,6 @@ const Test4 = () => {
         switch (type) {
             case lessonType.OBJECTIVE:
                 return <ObjectiveTypeQuestion />;
-                break;
             case lessonType.DRAGANDDROP:
                 return <DragAndDropTypeQuesiton />;
             case lessonType.MATCH:
@@ -214,7 +223,7 @@ const Test4 = () => {
         }
     };
     return (
-        <div className="font-bold text-yellow-700 ">
+        <div className="font-bold text-green-700 text-center p-4">
             <div>something to show here</div>
             {questionToRender(quizType)}
         </div>

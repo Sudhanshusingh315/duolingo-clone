@@ -1,34 +1,87 @@
 import { Autocomplete, selectClasses, TextField } from "@mui/material";
-import { useState } from "react";
-import { countries } from "../../../constants";
+import { useEffect, useState } from "react";
+import { constantsConfig, countries } from "../../../constants";
+import axios from "axios";
+import ReactCountryFlag from "react-country-flag";
 
 export default function Language() {
     // language array
     const [languageArray, setLanguageArray] = useState();
     const [selectedCountry, setSelectedCountry] = useState(null);
-
+    const languageOptions = countries?.filter((element, index) => {
+        if (!languageArray?.find((item) => item?.code === element?.code)) {
+            return element;
+        }
+    });
+    console.log("languae Options", languageOptions);
     const handleChange = (event, newValue) => {
         setSelectedCountry(newValue);
     };
+
+    useEffect(() => {
+        (async () => {
+            const {
+                data: { data },
+            } = await axios({
+                url: `${constantsConfig.BASE_URL}/api/language/languages`,
+            });
+            setLanguageArray(data);
+        })();
+    }, []);
+
+    const handleAddLanguage = async () => {
+        // make the api call
+        if (selectedCountry) {
+            const {
+                data: { data },
+            } = await axios({
+                url: `${constantsConfig.BASE_URL}/api/language/add-language`,
+                method: "post",
+                data: {
+                    name: selectedCountry.name,
+                    code: selectedCountry.code,
+                },
+            });
+            setSelectedCountry(null);
+            setLanguageArray((prev) => {
+                return [...prev, data];
+            });
+
+        }
+    };
     console.log("selected country", selectedCountry);
+    console.log("language", languageArray);
     return (
         <div className="p-4">
             <h1 className="text-2xl text-center mb-6">
                 Select the language or add one
             </h1>
-            <div className="flex flex-wrap">
+            <div className="flex flex-wrap justify-start gap-2">
                 {/* languages map goes here */}
+                {languageArray?.map(({ code }) => {
+                    return (
+                        <ReactCountryFlag
+                            countryCode={code}
+                            style={{
+                                fontSize: "5rem",
+                            }}
+                        />
+                    );
+                })}
             </div>
 
-            <h2 className="text-xl"> select languages from here</h2>
+            <h2 className="text-xl mb-2">
+                {" "}
+                select languages from here and add
+            </h2>
             <Autocomplete
-                options={countries}
+                options={languageOptions}
                 getOptionLabel={(option) => option.name}
                 renderInput={(params) => {
                     return (
                         <TextField
                             {...params}
-                            label="Movie"
+                            label="Languages"
                             sx={{
                                 "& label": { color: "white" },
                                 "& .MuiOutlinedInput-root": {
@@ -48,6 +101,13 @@ export default function Language() {
                 value={selectedCountry}
                 onChange={handleChange}
             />
+            <button
+                onClick={handleAddLanguage}
+                className="button my-2"
+                variant="secondary-outline"
+            >
+                add
+            </button>
         </div>
     );
 }

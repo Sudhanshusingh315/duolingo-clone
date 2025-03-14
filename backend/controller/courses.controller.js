@@ -70,6 +70,29 @@ const getAllCourse = async (req, res) => {
     }
 };
 
+const getAllCourses = async (req, res) => {
+    try {
+        const allCourses = await Course.aggregate([
+            {
+                $match: {
+                    languageId: { $exists: true, $ne: false },
+                },
+            },
+        ]);
+
+        return res.status(201).json({
+            sucess: true,
+            data: allCourses,
+        });
+    } catch (error) {
+        console.log("error", error);
+        return res.status(401).json({
+            success: false,
+            message: "Can not fetch courses at the moment",
+        });
+    }
+};
+
 // const addChaptersToCourse = async(req,res)=>{
 //     let {courseId} = req.params;
 

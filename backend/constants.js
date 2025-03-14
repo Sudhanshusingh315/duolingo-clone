@@ -4,9 +4,9 @@ const configEnv = {
 };
 
 const difficultyLevel = {
-    EASY: "EASY",
-    MEDIUM: "MEDIUM",
-    HARD: "HARD",
+    EASY: "Easy",
+    MEDIUM: "Medium",
+    HARD: "Hard",
 };
 
 const lessonType = {

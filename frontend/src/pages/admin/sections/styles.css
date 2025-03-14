@@ -1,8 +1,62 @@
-.progress-bar{
-    background-color: grey ;
-    width: 100%;
+@property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+:root {
+    --clr-1: #052b2f;
+    --clr-2: #073438;
+    --clr-3: #0e4b50;
+    --clr-4: #2d8f85;
+    --clr-5: #637c54;
+}
+
+.progress-bar {
+    background-color: green;
+    width: 0%;
     height: 4px;
     position: absolute;
     top: 50%;
     z-index: -1;
+}
+
+.card {
+    max-width: 500px;
+    aspect-ratio: 1/1.5;
+    padding: "20px";
+    background-color: #f4f4f4;
+    color: green;
+    border-radius: 0.8rem;
+    position: relative;
+    isolation: isolate;
+}
+
+.card::before,
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        var(--gradient-angle),
+        var(--clr-3),
+        var(--clr-4),
+        var(--clr-5)
+    );
+    z-index: -1;
+    border-radius: inherit;
+    animation: rotation 15s linear infinite;
+}
+
+.card::after {
+    filter: blur(3.5rem);
+}
+
+@keyframes rotation {
+    0% {
+        --gradient-angle: 0deg;
+    }
+    100% {
+        --gradient-angle: 360deg;
+    }
 }

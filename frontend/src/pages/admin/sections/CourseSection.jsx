@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { TextField, Button, MenuItem, Box, Autocomplete } from "@mui/material";
 import { constantsConfig } from "../../../constants";
 import axios from "axios";
-
+const FORMINITIAL = {
+    languageId: "",
+    name: "",
+    description: "",
+    difficultyLevel: "",
+};
 export default function CourseSection() {
     // todo: make the api protected
     const [availableLanguages, setAvailableLanguages] = useState(null);
@@ -21,15 +26,15 @@ export default function CourseSection() {
         })();
     }, []);
 
-    const [form, setForm] = useState({
-        language: "",
-        name: "",
-        description: "",
-        difficultyLevel: "",
-        chapters: [""],
-    });
+    const [form, setForm] = useState(FORMINITIAL);
 
-    const handleChange = (e) => {
+    const handleChange = (e, value) => {
+        if (value?.name) {
+            const { id } = value;
+            setForm({ ...form, language: id });
+            return;
+        }
+
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
@@ -39,16 +44,17 @@ export default function CourseSection() {
         setForm({ ...form, chapters: newChapters });
     };
 
-    const addChapter = () => {
-        if (form?.chapters?.length >= 8) {
-            setSubmitCourse(true);
-            return;
-        }
-        setForm({ ...form, chapters: [...form.chapters, ""] });
-    };
-
-    const handleSubmitCourse = () => {
+    const handleSubmitCourse = async () => {
         // make the api call for the course
+        const {
+            data: { data },
+        } = await axios({
+            url: `${constantsConfig.BASE_URL}/api/courses/add-course`,
+            method: "post",
+            data: form,
+        });
+
+        setForm(FORMINITIAL);
     };
 
     // todo: make the simmer for this too
@@ -59,7 +65,10 @@ export default function CourseSection() {
                     display: "flex",
                     flexDirection: "column",
                     gap: 2,
-                    width: 300,
+                    maxWidth: "70%",
+                    marginInline: "auto",
+                    padding: "1rem 3rem",
+                    marginTop: "1rem",
                 }}
             >
                 <Autocomplete
@@ -99,23 +108,13 @@ export default function CourseSection() {
                     <MenuItem value="Medium">Medium</MenuItem>
                     <MenuItem value="Hard">Hard</MenuItem>
                 </TextField>
-                {form.chapters.map((chapter, index) => (
-                    <TextField
-                        key={index}
-                        label={`Chapter ${index + 1}`}
-                        value={chapter}
-                        onChange={(e) =>
-                            handleChapterChange(index, e.target.value)
-                        }
-                        fullWidth
-                    />
-                ))}
-                <Button
-                    variant="contained"
-                    onClick={submitCourse ? handleSubmitCourse : addChapter}
+                <button
+                    className="button"
+                    variant="primary-outline"
+                    onClick={handleSubmitCourse}
                 >
-                    {submitCourse ? "Add Course" : "Add Chapter"}
-                </Button>
+                    Add Course
+                </button>
             </Box>
         )
     );
