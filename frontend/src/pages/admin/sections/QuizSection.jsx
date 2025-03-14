@@ -45,44 +45,49 @@ export default function QuizSection() {
     console.log("currentIndex", currentIndex);
     console.log("steps", steps);
     return (
-        <div className="w-[90%] bg-white min-h-80 mx-auto my-4 p-4 flex flex-col gap-1">
-            {/* this will be the actual stepper component */}
-            <div className="relative w-[80%] mx-auto mb-4 isolate h-full">
-                <div className="flex justify-between items-center mx-auto">
-                    {steps?.map((element, index) => {
-                        return element;
-                    })}
+        <div className="isolate mt-8">
+            <div
+                // className="w-[90%] b min-h-80 mx-auto my-4 p-4 flex flex-col gap-1"
+                className="card mx-auto p-4"
+            >
+                {/* this will be the actual stepper component */}
+                <div className="relative w-[80%] mx-auto mb-4 isolate ">
+                    <div className="flex justify-between items-center mx-auto text-black font-bold">
+                        {steps?.map((element, index) => {
+                            return element;
+                        })}
+                    </div>
+                    <div
+                        className={`progress-bar`}
+                        style={{
+                            width: `${progressBarWidth}%`,
+                        }}
+                    ></div>
                 </div>
-                <div
-                    className={`progress-bar`}
-                    style={{
-                        width: `${progressBarWidth}%`,
-                    }}
-                ></div>
-            </div>
-            <div className="max-w-[95%] mx-auto mt-2 flex-1">
-                {/* place where component will render */}
-                {currentComponent[currentIndex]}
-            </div>{" "}
-            <div className="flex gap-1">
-                {currentIndex >= 1 && (
+                <div className="max-w-[95%] mx-auto mt-2 flex-1">
+                    {/* place where component will render */}
+                    {currentComponent[currentIndex]}
+                </div>{" "}
+                <div className="flex gap-1">
+                    {currentIndex >= 1 && (
+                        <button
+                            className="text-black button"
+                            variant="primary"
+                            onClick={handlePrev}
+                        >
+                            Back
+                        </button>
+                    )}
                     <button
                         className="text-black button"
                         variant="primary"
-                        onClick={handlePrev}
+                        onClick={handleNext}
                     >
-                        Back
+                        {currentIndex === currentComponent?.length - 1
+                            ? "Submit the Quiz"
+                            : "Next"}
                     </button>
-                )}
-                <button
-                    className="text-black button"
-                    variant="primary"
-                    onClick={handleNext}
-                >
-                    {currentIndex === currentComponent?.length - 1
-                        ? "Submit the Quiz"
-                        : "Next"}
-                </button>
+                </div>
             </div>
         </div>
     );

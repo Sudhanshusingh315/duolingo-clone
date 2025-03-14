@@ -26,30 +26,31 @@
     aspect-ratio: 1/1.5;
     padding: "20px";
     background-color: #f4f4f4;
-    color: green;
+    color: var(--clr-3);
     border-radius: 0.8rem;
     position: relative;
-    isolation: isolate;
 }
 
 .card::before,
 .card::after {
     content: "";
     position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        var(--gradient-angle),
+    inset: -0.8rem;
+    background: conic-gradient(
+        from var(--gradient-angle),
         var(--clr-3),
         var(--clr-4),
-        var(--clr-5)
+        var(--clr-5),
+        var(--clr-4),
+        var(--clr-3)
     );
-    z-index: -1;
+    z-index: -10;
     border-radius: inherit;
     animation: rotation 15s linear infinite;
 }
 
 .card::after {
-    filter: blur(3.5rem);
+    filter: blur(4.5rem);
 }
 
 @keyframes rotation {
@@ -59,4 +60,12 @@
     100% {
         --gradient-angle: 360deg;
     }
+}
+
+.sidebar:hover .icon-name {
+    display: block;
+}
+
+.icon-name {
+    display: none;
 }

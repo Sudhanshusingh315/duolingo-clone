@@ -53,7 +53,7 @@ const ChapterSection = () => {
     };
 
     return (
-        <div className="px-4 mt-8">
+        <div className="px-4 mt-8 isolate">
             <div className="card mx-auto ">
                 <CardContent>
                     <Typography

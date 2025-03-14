@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
-import { TextField, Button, MenuItem, Box, Autocomplete } from "@mui/material";
+import {
+    TextField,
+    Button,
+    MenuItem,
+    Box,
+    Autocomplete,
+    Typography,
+} from "@mui/material";
 import { constantsConfig } from "../../../constants";
+import "./styles.css";
 import axios from "axios";
 const FORMINITIAL = {
     languageId: "",
@@ -60,62 +68,84 @@ export default function CourseSection() {
     // todo: make the simmer for this too
     return (
         availableLanguages && (
-            <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 2,
-                    maxWidth: "70%",
-                    marginInline: "auto",
-                    padding: "1rem 3rem",
-                    marginTop: "1rem",
-                }}
-            >
-                <Autocomplete
-                    options={availableLanguages}
-                    getOptionLabel={(option) => option?.name || ""}
-                    renderInput={(params) => {
-                        return <TextField {...params} label="Counteris" />;
-                    }}
-                    value={selectedCountry}
-                    onChange={handleChange}
-                />
-                <TextField
-                    label="Name"
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    fullWidth
-                />
-                <TextField
-                    label="Description"
-                    name="description"
-                    value={form.description}
-                    onChange={handleChange}
-                    multiline
-                    rows={3}
-                    fullWidth
-                />
-                <TextField
-                    select
-                    label="Difficulty Level"
-                    name="difficultyLevel"
-                    value={form.difficultyLevel}
-                    onChange={handleChange}
-                    fullWidth
+            <div className="px-4 mt-8 isolate">
+                <div
+                    className="card mx-auto p-4"
+                    // sx={{
+                    //     display: "flex",
+                    //     flexDirection: "column",
+                    //     gap: 2,
+                    //     maxWidth: "70%",
+                    //     marginInline: "auto",
+                    //     padding: "1rem 3rem",
+                    //     marginTop: "1rem",
+                    // }}
                 >
-                    <MenuItem value="Easy">Easy</MenuItem>
-                    <MenuItem value="Medium">Medium</MenuItem>
-                    <MenuItem value="Hard">Hard</MenuItem>
-                </TextField>
-                <button
-                    className="button"
-                    variant="primary-outline"
-                    onClick={handleSubmitCourse}
-                >
-                    Add Course
-                </button>
-            </Box>
+                    <Typography
+                        variant="h5"
+                        component="div"
+                        sx={{ fontWeight: "bold", marginBottom: "20px" }}
+                    >
+                        Create a Course
+                    </Typography>
+                    <Autocomplete
+                        options={availableLanguages}
+                        getOptionLabel={(option) => option?.name || ""}
+                        renderInput={(params) => {
+                            return <TextField {...params} label="Counteris" />;
+                        }}
+                        value={selectedCountry}
+                        onChange={handleChange}
+                        sx={{
+                            marginBottom: "15px",
+                        }}
+                    />
+                    <TextField
+                        label="Name"
+                        name="name"
+                        value={form.name}
+                        onChange={handleChange}
+                        sx={{
+                            marginBottom: "15px",
+                        }}
+                        fullWidth
+                    />
+                    <TextField
+                        label="Description"
+                        sx={{
+                            marginBottom: "15px",
+                        }}
+                        name="description"
+                        value={form.description}
+                        onChange={handleChange}
+                        multiline
+                        rows={3}
+                        fullWidth
+                    />
+                    <TextField
+                        select
+                        label="Difficulty Level"
+                        name="difficultyLevel"
+                        value={form.difficultyLevel}
+                        onChange={handleChange}
+                        fullWidth
+                        sx={{
+                            marginBottom: "15px",
+                        }}
+                    >
+                        <MenuItem value="Easy">Easy</MenuItem>
+                        <MenuItem value="Medium">Medium</MenuItem>
+                        <MenuItem value="Hard">Hard</MenuItem>
+                    </TextField>
+                    <button
+                        className="button"
+                        variant="secondary"
+                        onClick={handleSubmitCourse}
+                    >
+                        Add Course
+                    </button>
+                </div>
+            </div>
         )
     );
 }

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { constantsConfig, countries } from "../../../constants";
 import axios from "axios";
 import ReactCountryFlag from "react-country-flag";
-
+import { useLocation } from 'react-router'
 export default function Language() {
     // language array
     const [languageArray, setLanguageArray] = useState();
@@ -13,6 +13,9 @@ export default function Language() {
             return element;
         }
     });
+    let location = useLocation();
+
+    console.log("location",location);
     console.log("languae Options", languageOptions);
     const handleChange = (event, newValue) => {
         setSelectedCountry(newValue);
