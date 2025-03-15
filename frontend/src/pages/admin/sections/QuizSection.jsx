@@ -11,6 +11,7 @@ import MatchQuestion from "../questionTypes/MatchQuestionTemplate";
 import MemoryMatchQuestion from "../questionTypes/MemoryMatchTypeQuestionTemplate";
 export default function QuizSection() {
     const [test, setTest] = useState({});
+    const { data, setData } = useContext(QuizDataContext);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentComponent, setCurrentComponent] = useState([
         <Test1 />,
@@ -26,7 +27,7 @@ export default function QuizSection() {
                 key={i}
                 className={`${
                     currentIndex < i ? "bg-gray-500" : "bg-green-500"
-                } w-10 aspect-square rounded-full flex justify-center items-center transition-all 300ms ease-in`}
+                } w-10 aspect-square rounded-full flex justify-center items-center transition-all 300ms ease-in cursor-pointer`}
             >
                 {i + 1}
             </div>
@@ -42,6 +43,27 @@ export default function QuizSection() {
         if (currentIndex === 0) return;
         setCurrentIndex((prev) => prev - 1);
     };
+
+    const handleApiCall = async() => {
+        const { lessonType: type } = { data };
+        switch (type) {
+            case lessonType.OBJECTIVE:
+               await axios({
+                    url: `${constantsConfig.BASE_URL}/api/quizzes/add-objectiveQuiz`,
+                    data,
+                });
+                break;
+            case lessonType.DRAGANDDROP:
+                break;
+            case lessonType.MATCH:
+                break;
+            case lessonType.MEMORYGAME:
+                break;
+            default:
+                break;
+        }
+    };
+
     console.log("currentIndex", currentIndex);
     console.log("steps", steps);
     return (
@@ -81,7 +103,11 @@ export default function QuizSection() {
                     <button
                         className="text-black button"
                         variant="primary"
-                        onClick={handleNext}
+                        onClick={
+                            currentIndex === currentComponent?.length - 1
+                                ? handleApiCall
+                                : handleNext
+                        }
                     >
                         {currentIndex === currentComponent?.length - 1
                             ? "Submit the Quiz"
@@ -224,12 +250,11 @@ const Test4 = () => {
             case lessonType.MEMORYGAME:
                 return <MemoryMatchQuestion />;
             default:
-                break;
+                return <h1>Please go back and select the options</h1>;
         }
     };
     return (
         <div className="font-bold text-green-700 text-center p-4">
-            <div>something to show here</div>
             {questionToRender(quizType)}
         </div>
     );

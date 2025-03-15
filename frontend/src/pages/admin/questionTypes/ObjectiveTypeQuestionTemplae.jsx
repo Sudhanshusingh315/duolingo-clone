@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
     TextField,
     Button,
@@ -9,8 +9,10 @@ import {
     Card,
     CardContent,
 } from "@mui/material";
+import { QuizDataContext } from "../../../context/quizDataContext";
 
 export default function ObjectiveTypeQuestion() {
+    const { data, setData } = useContext(QuizDataContext);
     const [question, setQuestion] = useState("");
     const [answers, setAnswers] = useState([
         { text: "", isCorrect: false },
@@ -20,9 +22,17 @@ export default function ObjectiveTypeQuestion() {
     ]);
 
     const handleAnswerChange = (index, field, value) => {
-        const updatedAnswers = [...answers];
-        updatedAnswers[index][field] = value;
-        setAnswers(updatedAnswers);
+        const options = [...answers];
+
+        options[index][field] = value;
+        setAnswers(options);
+
+        setData((prev) => {
+            return {
+                ...prev,
+                options,
+            };
+        });
     };
 
     const handleSubmit = (e) => {
@@ -33,7 +43,7 @@ export default function ObjectiveTypeQuestion() {
         });
         // Add API call or other logic here
     };
-
+    console.log("question data", data);
     return (
         <Card
             sx={{
@@ -47,7 +57,11 @@ export default function ObjectiveTypeQuestion() {
                 <Typography
                     variant="h5"
                     component="div"
-                    sx={{ fontWeight: "bold", marginBottom: "20px" }}
+                    sx={{
+                        fontWeight: "bold",
+                        marginBottom: "20px",
+                        color: "#0e4b50",
+                    }}
                 >
                     Create a Question
                 </Typography>
@@ -58,7 +72,15 @@ export default function ObjectiveTypeQuestion() {
                         variant="outlined"
                         fullWidth
                         value={question}
-                        onChange={(e) => setQuestion(e.target.value)}
+                        onChange={(e) => {
+                            setQuestion(e.target.value);
+                            setData((prev) => {
+                                return {
+                                    ...prev,
+                                    question: e.target.value,
+                                };
+                            });
+                        }}
                         sx={{ marginBottom: "20px" }}
                         required
                     />
@@ -104,16 +126,6 @@ export default function ObjectiveTypeQuestion() {
                             />
                         </Box>
                     ))}
-
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        fullWidth
-                        sx={{ marginTop: "20px" }}
-                    >
-                        Submit Question
-                    </Button>
                 </form>
             </CardContent>
         </Card>

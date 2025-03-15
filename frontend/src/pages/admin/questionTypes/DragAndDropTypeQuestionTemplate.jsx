@@ -13,20 +13,23 @@ import {
 } from "@mui/material";
 
 function DragAndDropTypeQuesiton() {
-    const [buckets, setBuckets] = useState([]); // List of buckets
-    const [bucketName, setBucketName] = useState(""); // New bucket input
-    const [selectedBucket, setSelectedBucket] = useState(""); // Selected bucket for adding items
-    const [items, setItems] = useState({}); // Stores items per bucket
-    const [newItem, setNewItem] = useState(""); // New item input
+    const [buckets, setBuckets] = useState([]);
+    const [bucketName, setBucketName] = useState("");
+    const [selectedBucket, setSelectedBucket] = useState("");
+    const [items, setItems] = useState({});
+    const [newItem, setNewItem] = useState("");
 
     // Add new bucket
     const addBucket = () => {
+        if (buckets?.length === 4) return;
         if (bucketName.trim() && !buckets.includes(bucketName)) {
             setBuckets([...buckets, bucketName]);
             setItems({ ...items, [bucketName]: [] }); // Initialize bucket
             setBucketName("");
         }
     };
+    console.log("buckets", buckets);
+    console.log("items", items);
 
     // Add new item to selected bucket
     const addItem = () => {
@@ -40,7 +43,16 @@ function DragAndDropTypeQuesiton() {
     };
 
     return (
-        <div style={{ padding: "20px", maxWidth: "600px", margin: "auto" }}>
+        <div
+            style={{
+                padding: "20px",
+                maxWidth: "600px",
+                margin: "auto",
+                maxHeight: "500px",
+                marginBottom: "2rem",
+                overflowY: "scroll",
+            }}
+        >
             <Typography variant="h5">Create Buckets & Add Items</Typography>
 
             {/* Add Bucket */}
@@ -54,7 +66,17 @@ function DragAndDropTypeQuesiton() {
                     />
                 </Grid>
                 <Grid item xs={4}>
-                    <Button variant="contained" onClick={addBucket} fullWidth>
+                    <Button
+                        variant="contained"
+                        onClick={addBucket}
+                        fullWidth
+                        sx={{
+                            backgroundColor: `${
+                                buckets?.length === 4 ? "gray" : "green"
+                            }`,
+                            color: "white",
+                        }}
+                    >
                         Add Bucket
                     </Button>
                 </Grid>
