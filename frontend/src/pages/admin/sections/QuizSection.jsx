@@ -44,24 +44,45 @@ export default function QuizSection() {
         setCurrentIndex((prev) => prev - 1);
     };
 
-    const handleApiCall = async() => {
-        const { lessonType: type } = { data };
+    const handleApiCall = async () => {
+        console.log("calling th api");
+        const { lessonType: type } = data;
         switch (type) {
             case lessonType.OBJECTIVE:
-               await axios({
+                console.log(
+                    `type is ${type} and ${JSON.stringify(data, null, "\t")}`
+                );
+                await axios({
+                    method: "post",
                     url: `${constantsConfig.BASE_URL}/api/quizzes/add-objectiveQuiz`,
                     data,
                 });
                 break;
             case lessonType.DRAGANDDROP:
+                console.log(
+                    `type is ${type} and ${JSON.stringify(data, null, "\t")}`
+                );
+                await axios({
+                    url: `${constantsConfig.BASE_URL}/api/quizzes/add-dragAndDrop`,
+                    data,
+                });
                 break;
             case lessonType.MATCH:
+                console.log(
+                    `type is ${type} and ${JSON.stringify(data, null, "\t")}`
+                );
+                // await axios({
+                //     url: `${constantsConfig.BASE_URL}/api/quizzes/add-matchQuiz`,
+                //     data,
+                // });
                 break;
             case lessonType.MEMORYGAME:
                 break;
             default:
                 break;
         }
+
+        setData({});
     };
 
     console.log("currentIndex", currentIndex);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
     TextField,
     Button,
@@ -10,9 +10,12 @@ import {
     Select,
     FormControl,
     InputLabel,
+    sliderClasses,
 } from "@mui/material";
+import { QuizDataContext } from "../../../context/quizDataContext";
 
 function DragAndDropTypeQuesiton() {
+    const { data, setData } = useContext(QuizDataContext);
     const [buckets, setBuckets] = useState([]);
     const [bucketName, setBucketName] = useState("");
     const [selectedBucket, setSelectedBucket] = useState("");
@@ -23,6 +26,13 @@ function DragAndDropTypeQuesiton() {
     const addBucket = () => {
         if (buckets?.length === 4) return;
         if (bucketName.trim() && !buckets.includes(bucketName)) {
+            setData((prev) => {
+                return {
+                    ...prev,
+                    categories: [...buckets, bucketName],
+                    words: [{ ...items, [bucketName]: [] }],
+                };
+            });
             setBuckets([...buckets, bucketName]);
             setItems({ ...items, [bucketName]: [] }); // Initialize bucket
             setBucketName("");
@@ -30,10 +40,24 @@ function DragAndDropTypeQuesiton() {
     };
     console.log("buckets", buckets);
     console.log("items", items);
-
+    console.log("data ", data);
     // Add new item to selected bucket
     const addItem = () => {
         if (selectedBucket && newItem.trim()) {
+            setData((prev) => {
+                return {
+                    ...prev,
+                    items: [
+                        {
+                            ...items,
+                            [selectedBucket]: [
+                                ...items[selectedBucket],
+                                newItem,
+                            ],
+                        },
+                    ],
+                };
+            });
             setItems({
                 ...items,
                 [selectedBucket]: [...items[selectedBucket], newItem],
