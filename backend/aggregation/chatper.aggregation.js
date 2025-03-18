@@ -15,7 +15,15 @@ const getChapterPipeline = (id) => {
                     $map: {
                         input: "$quiz",
                         as: "q",
-                        in: { $toObjectId: "$$q" },
+                        in: {
+                            $cond: {
+                                if: {
+                                    $eq: [{ $type: "$$q" }, "string"],
+                                },
+                                then: { $toObjectId: "$$q" },
+                                else: "$$q",
+                            },
+                        },
                     },
                 },
             },

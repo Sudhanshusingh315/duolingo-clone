@@ -10,6 +10,7 @@ import CourseSection from "./pages/admin/sections/CourseSection";
 import ChapterSection from "./pages/admin/sections/ChaptersSection";
 import QuizSection from "./pages/admin/sections/QuizSection";
 import { QuizDataContextProvider } from "./context/quizDataContext";
+import { LessonContextProvider } from "./context/lessonContext";
 
 function App() {
     return (
@@ -31,7 +32,14 @@ function App() {
                 </Route>
                 <Route path="/lesson" element={<Main />} />
 
-                <Route path="/lessonQuiz/:lessonId" element={<Lesson />} />
+                <Route
+                    path="/lessonQuiz/:lessonId"
+                    element={
+                        <LessonContextProvider>
+                            <Lesson />
+                        </LessonContextProvider>
+                    }
+                />
             </Routes>
         </BrowserRouter>
     );

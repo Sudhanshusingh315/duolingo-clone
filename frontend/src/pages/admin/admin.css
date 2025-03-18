@@ -1,7 +1,7 @@
 body {
     background-color: #333;
 }
-.grid {
+.grid-admin {
     display: grid;
     grid-template-columns: 5rem auto;
     transition: all 200ms ease-in-out;

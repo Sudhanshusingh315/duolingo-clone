@@ -4,7 +4,7 @@ import { Globe, LandPlot, Album, FileQuestion } from "lucide-react";
 import hehe from "../../assets/test.png";
 export default function Admin() {
     return (
-        <div className="grid">
+        <div className="grid-admin">
             <div className="sidebar">
                 <Link
                     to="/admin/test"

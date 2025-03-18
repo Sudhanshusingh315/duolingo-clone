@@ -47,11 +47,14 @@ export default function QuizSection() {
     const handleApiCall = async () => {
         console.log("calling th api");
         const { lessonType: type } = data;
+        if (!data || !data?.lessonType || !data?.language) return;
         switch (type) {
             case lessonType.OBJECTIVE:
-                console.log(
-                    `type is ${type} and ${JSON.stringify(data, null, "\t")}`
-                );
+                // for future debugging
+
+                // console.log(
+                //     `type is ${type} and ${JSON.stringify(data, null, "\t")}`
+                // );
                 await axios({
                     method: "post",
                     url: `${constantsConfig.BASE_URL}/api/quizzes/add-objectiveQuiz`,
@@ -59,22 +62,16 @@ export default function QuizSection() {
                 });
                 break;
             case lessonType.DRAGANDDROP:
-                console.log(
-                    `type is ${type} and ${JSON.stringify(data, null, "\t")}`
-                );
                 await axios({
                     url: `${constantsConfig.BASE_URL}/api/quizzes/add-dragAndDrop`,
                     data,
                 });
                 break;
             case lessonType.MATCH:
-                console.log(
-                    `type is ${type} and ${JSON.stringify(data, null, "\t")}`
-                );
-                // await axios({
-                //     url: `${constantsConfig.BASE_URL}/api/quizzes/add-matchQuiz`,
-                //     data,
-                // });
+                await axios({
+                    url: `${constantsConfig.BASE_URL}/api/quizzes/add-matchQuiz`,
+                    data,
+                });
                 break;
             case lessonType.MEMORYGAME:
                 break;
