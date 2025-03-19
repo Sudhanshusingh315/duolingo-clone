@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import { createContext, isValidElement, useEffect, useState } from "react";
 import { constantsConfig, lessonType } from "../constants";
 
 export const LessonContext = createContext(null);
@@ -19,7 +19,6 @@ export const LessonContextProvider = ({ children }) => {
 
     const [isCorrectAnswer, setIsCorrectAnswer] = useState(null);
     const [moveToNext, setMoveToNext] = useState(false);
-
     const handleCheckAnswer = () => {
         // this holds the data from the current quiz
         const currentQuiz = quizzes[currentIndex];
@@ -42,6 +41,33 @@ export const LessonContextProvider = ({ children }) => {
                 // will check for answers like this
                 break;
             case lessonType.DRAGANDDROP:
+                console.log("usersAnswer", userAnswerDragAndDrop);
+                const isInvalidState = (userAnswerDragAndDrop) => {
+                    return userAnswerDragAndDrop &&
+                        Object.values(userAnswerDragAndDrop)?.every(
+                            (arr) => arr.length === 0
+                        )
+                        ? false
+                        : true;
+                };
+
+                if (!isInvalidState(userAnswerDragAndDrop)) {
+                    setIsCorrectAnswer(false);
+                    return;
+                }
+                const validateCategories = (userAnswerDragAndDrop) => {
+                    for (const category in userAnswerDragAndDrop) {
+                        for (const item of userAnswerDragAndDrop[category]) {
+                            if (item.category !== category) {
+                                setIsCorrectAnswer(false);
+                                return;
+                            }
+                        }
+                    }
+                    setIsCorrectAnswer(true);
+                    return;
+                };
+                validateCategories();
                 // will check for answers like this
                 break;
             case lessonType.MATCH:

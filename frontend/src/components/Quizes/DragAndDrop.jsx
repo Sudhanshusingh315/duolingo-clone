@@ -91,18 +91,20 @@ export default function DragDropSortGame({ data }) {
                                     className="w-40 aspect-square bg-emerald-500 text-white rounded-md"
                                 >
                                     <div className="grid gap-2">
-                                        <p className="text-center font-bold p-1 text-emerald-950">
+                                        <p className="text-center text-xl font-bold p-1 text-emerald-950">
                                             {element}
                                         </p>
-                                        {userAnswerDragAndDrop[element]?.map(
-                                            (meow, index) => {
+                                        <ul>
+                                            {userAnswerDragAndDrop[
+                                                element
+                                            ]?.map((meow, index) => {
                                                 return (
-                                                    <div className="p-2 ">
+                                                    <li className="p-2 ">
                                                         {meow?.text}
-                                                    </div>
+                                                    </li>
                                                 );
-                                            }
-                                        )}
+                                            })}
+                                        </ul>
                                     </div>
                                 </p>
                             );
