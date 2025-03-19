@@ -1,0 +1,5 @@
+.test {
+    background-color: var(--clr-2);
+    border: 2px dotted white;
+    opacity: 0.5;
+}

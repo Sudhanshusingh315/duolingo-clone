@@ -14,6 +14,9 @@ export const LessonContextProvider = ({ children }) => {
     // memory match
     const [userAnswerMemoryMatch, setUserAnswerMemoryMatch] = useState(null);
 
+    // drag and drop
+    const [userAnswerDragAndDrop, setUserAnswerDragAndDrop] = useState(null);
+
     const [isCorrectAnswer, setIsCorrectAnswer] = useState(null);
     const [moveToNext, setMoveToNext] = useState(false);
 
@@ -78,6 +81,8 @@ export const LessonContextProvider = ({ children }) => {
                 setUserAnswerMatch,
                 userAnswerMemoryMatch,
                 setUserAnswerMemoryMatch,
+                setUserAnswerDragAndDrop,
+                userAnswerDragAndDrop,
             }}
         >
             {children}
