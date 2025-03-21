@@ -1,6 +1,5 @@
-import axios from "axios";
-import { createContext, isValidElement, useEffect, useState } from "react";
-import { constantsConfig, lessonType } from "../constants";
+import { createContext, useState } from "react";
+import { lessonType } from "../constants";
 
 export const LessonContext = createContext(null);
 
@@ -42,6 +41,7 @@ export const LessonContextProvider = ({ children }) => {
                 break;
             case lessonType.DRAGANDDROP:
                 console.log("usersAnswer", userAnswerDragAndDrop);
+                let failedAlready = false;
                 const isInvalidState = (userAnswerDragAndDrop) => {
                     return userAnswerDragAndDrop &&
                         Object.values(userAnswerDragAndDrop)?.every(
@@ -53,7 +53,7 @@ export const LessonContextProvider = ({ children }) => {
 
                 if (!isInvalidState(userAnswerDragAndDrop)) {
                     setIsCorrectAnswer(false);
-                    return;
+                    failedAlready = true;
                 }
                 const validateCategories = (userAnswerDragAndDrop) => {
                     for (const category in userAnswerDragAndDrop) {
@@ -64,7 +64,7 @@ export const LessonContextProvider = ({ children }) => {
                             }
                         }
                     }
-                    setIsCorrectAnswer(true);
+                    !failedAlready && setIsCorrectAnswer(true);
                     return;
                 };
                 validateCategories();
@@ -73,6 +73,7 @@ export const LessonContextProvider = ({ children }) => {
             case lessonType.MATCH:
                 // will check for answers like this
                 if (!userAnswerMatch) {
+                    console.log("inside the match case");
                     setIsCorrectAnswer(false);
                 }
                 break;

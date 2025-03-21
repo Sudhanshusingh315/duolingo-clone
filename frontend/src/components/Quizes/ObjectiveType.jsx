@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { LessonContext } from "../../context/lessonContext";
 
 export const ObjectiveType = ({ data }) => {
     const { userAnswer, setUserAnswer } = useContext(LessonContext);
+    const [isSelectedOption, setIsSelectedOption] = useState(null);
     console.log("data objective", data);
     const { question, options, quizType, id } = data;
     return (
@@ -16,6 +17,11 @@ export const ObjectiveType = ({ data }) => {
                         <button
                             key={index}
                             className="button"
+                            variant={`${
+                                userAnswer?.text === text
+                                    ? "primary-outline"
+                                    : "primary"
+                            }`}
                             onClick={() => {
                                 setUserAnswer({ text, isCorrect });
                             }}
