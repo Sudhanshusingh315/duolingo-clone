@@ -59,7 +59,7 @@ export default function DragDropSortGame({ data }) {
             <div className="my-4 text-center text-xl font-semibold text-white">
                 Go ahead put 'em where they belong
             </div>
-            <div className="flex gap-2 w-full flex-wrap">
+            <div className="flex gap-2 w-full flex-wrap content-center ">
                 {dragWords?.map((element, index) => {
                     return (
                         <p
@@ -75,7 +75,7 @@ export default function DragDropSortGame({ data }) {
                     );
                 })}
             </div>
-            <div className="flex gap-2 mt-8 justify-evenly items-center ">
+            <div className="flex gap-2 mt-8 justify-evenly items-center flex-wrap ">
                 {userAnswerDragAndDrop &&
                     Object?.keys(userAnswerDragAndDrop)?.map(
                         (element, index) => {

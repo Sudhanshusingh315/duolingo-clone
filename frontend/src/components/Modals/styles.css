@@ -1,0 +1,58 @@
+.dialog {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    /* display */
+    display: grid;
+    place-content: center;
+}
+
+.dialog-content {
+    padding: 2rem;
+    aspect-ratio: 1/1;
+    color: white;
+    text-align: center;
+    background: linear-gradient(45deg, var(--clr-1), var(--clr-4));
+    border-radius: 2rem;
+}
+
+.lesson-stats {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.stat-box {
+    width: 7.5rem;
+    aspect-ratio: 1/1;
+    background-color: orange;
+    text-align: center;
+    color: white;
+    font-weight: 800;
+    border-radius: 0.87em;
+    padding-top: 0.25rem;
+    overflow: hidden;
+}
+
+.sub-stat-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: white;
+    color: orange;
+    width: 95%;
+    margin-inline: auto;
+    aspect-ratio: 1/1;
+    border-radius: inherit;
+    font-size: 1.2rem;
+}
+
+.stat-box[type="heart"] {
+    background-color: lightcoral;
+}
+.sub-stat-box[type="heart"] {
+    color: lightcoral;
+}
