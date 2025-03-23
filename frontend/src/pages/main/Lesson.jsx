@@ -16,6 +16,8 @@ const componentMap = {
     [lessonType.OBJECTIVE]: ObjectiveType,
 };
 
+// todo: make a 404 page this app and duolingo as well
+
 export default function Lesson() {
     const {
         quizzes,
@@ -35,10 +37,12 @@ export default function Lesson() {
     } = useContext(LessonContext);
     let { lessonId } = useParams();
     const answerProgressRef = useRef(0);
-    const [showLessonReviewModal, setShowLessonReviewModal] = useState(true);
+    const [showLessonReviewModal, setShowLessonReviewModal] = useState(false);
     let navigate = useNavigate();
     // state determining the answers;
     answerProgressRef.current = (currentIndex / quizzes?.length) * 100;
+
+    
     useEffect(() => {
         (async () => {
             const { data } = await axios({

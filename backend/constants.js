@@ -17,4 +17,14 @@ const lessonType = {
     AUDIOANDTYPE: "audioAndType",
 };
 
-module.exports = { configEnv, difficultyLevel, lessonType };
+const passportGoogleCredentials = {
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET: process.env.CLIENT_SECRET,
+};
+
+module.exports = {
+    configEnv,
+    difficultyLevel,
+    lessonType,
+    passportGoogleCredentials,
+};

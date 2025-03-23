@@ -5,11 +5,29 @@ import ReactCountryFlag from "react-country-flag";
 import Course from "../../components/Course";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourseByLang } from "../../features/course/courseMaterial";
+import axios from "axios";
+import { constantsConfig } from "../../constants";
 
 export default function Main() {
     const [testArray, newTestArray] = useState(Array(5).fill(""));
     const { courses } = useSelector((state) => state.course);
     const dispatch = useDispatch();
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                console.log("Fetching user login data...");
+                const response = await axios.get(
+                    `${constantsConfig.BASE_URL}/api/auth/user-login`
+                );
+                console.log("Response:", response.data);
+            } catch (error) {
+                console.error("Error fetching user login data:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     useEffect(() => {
         // todo: FIX THIS BEFORE GOING TO THE QUIZ STAGE
         // todo: make the language section as soon as possible so that you can then add the real id here
