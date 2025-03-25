@@ -12,12 +12,13 @@ import QuizSection from "./pages/admin/sections/QuizSection";
 import { QuizDataContextProvider } from "./context/quizDataContext";
 import { LessonContextProvider } from "./context/lessonContext";
 import Auth from "./pages/auth/Auth";
+import MarketingPage from "./pages/makerting/MarketingPage";
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                {/* <Route path="/" element={} /> */}
+                <Route path="/" element={<MarketingPage />} />
                 <Route
                     path="/admin"
                     element={

@@ -1,14 +1,64 @@
-const passport = require("passport");
+const User = require("../models/userModel");
+const { generatingToken } = require("../utils/jwtToken");
 
-const userAuth = () => {
-    return passport.authenticate("google", { scope: ["email", "profile"] });
+const login = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const userExists = await User.findOne({ email });
+        if (!userExists) {
+            throw new Error("Email is not registered");
+        }
+        if (userExists && (await userExists.matchPassword(password))) {
+            const data = { email, id: userExists._id };
+            const token = await generatingToken(data);
+            res.status(201).json({
+                success: true,
+                message: "logged in",
+                name: userExists.name,
+                accessToken: token,
+            });
+        } else {
+            throw new Error("Email or Password invalid");
+        }
+    } catch (err) {
+        res.status(401).json({
+            success: false,
+            msg: err.message,
+        });
+    }
 };
 
-const userTest = async (req, res) => {
-    res.send("<div><h1>Hello, user is authenticated</h1></div>");
+const register = async (req, res) => {
+    const { name, email, password } = req.body;
+    try {
+        const userExists = await User.findOne({ email });
+        if (userExists) {
+            throw new Error("email already registered");
+        }
+        // todo: bcrypt this password
+        const newUser = await User.create({
+            name,
+            email,
+            password,
+        });
+        // user created now send the token
+        const data = { name, email, id: newUser._id };
+        const token = await generatingToken(data);
+        res.status(201).json({
+            success: true,
+            msg: "user created successfully",
+            accessToken: token,
+            name: name,
+        });
+    } catch (err) {
+        res.status(401).json({
+            success: false,
+            msg: err.message,
+        });
+    }
 };
 
 module.exports = {
-    userAuth,
-    userTest,
+    login,
+    register,
 };

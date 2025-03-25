@@ -1,7 +1,7 @@
 require("dotenv").config();
-require("./utils/passport");
-const passport = require("passport");
 const express = require("express");
+const passport = require("passport");
+require("./utils/passportfile");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const session = require("express-session");
@@ -9,7 +9,16 @@ const { configEnv } = require("./constants");
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+    session({
+        // todo: add from evn, testing for now
+        secret: "dafjdalk",
+        resave: false,
+        saveUninitialized: false,
+    })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 // Connect to MongoDB
 main().catch((err) => console.log(err));
 
@@ -18,23 +27,11 @@ async function main() {
     console.log("mongoose connected");
 }
 // Import Routes
-app.use(
-    session({
-        // todo: change this session secrete.
-        secret: "your-secret-key",
-        resave: false,
-        saveUninitialized: false,
-    })
-);
-
-// Initialize Passport and session management
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(cors());
 
 const courseRoutes = require("./routes/course.route");
 const languageRoutes = require("./routes/language.route");
 const chapterRoutes = require("./routes/chatper.route");
-// const userRoutes = require("./routes/userRoutes");
 const quizRoutes = require("./routes/quiz.route");
 const userRoutes = require("./routes/user.route");
 app.get("/", (req, res) => {

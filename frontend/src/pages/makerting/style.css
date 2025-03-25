@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+.header-section {
+    display: flex;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    color: var(--clr-4);
+    p {
+        font-size: 3rem;
+        font-weight: bold;
+    }
+}
+
+.main-page {
+    padding: 2rem;
+    img {
+        display: block;
+        max-width: 100%;
+        margin-inline: auto;
+        aspect-ratio: square;
+        border-radius: 1rem;
+    }
+    p {
+        font-size: clamp(1.87rem, 3vw, 4rem);
+        text-align: center;
+        margin-top: 0.875rem;
+        font-weight: 800;
+        color: var(--background-color);
+        width: 100%;
+        margin-inline: auto;
+        text-transform: uppercase;
+    }
+}
+.lingo-action-button {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.875rem;
+    place-content: center;
+}
+
+@media (min-width: 600px) {
+    .main-page {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .main-page > p {
+        place-self: center;
+        font-weight: bold;
+        background-image: url("../../assets/giphy.gif");
+        background-size: cover;
+        background-clip: text;
+        color: rgba(0, 0, 0, .6);
+        font-family: "Luckiest Guy", cursive;
+    }
+
+    .lingo-action-button {
+        grid-column-start: 1;
+        grid-column-end: -1;
+    }
+}

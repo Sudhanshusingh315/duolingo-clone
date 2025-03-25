@@ -17,7 +17,7 @@ export default function Main() {
             try {
                 console.log("Fetching user login data...");
                 const response = await axios.get(
-                    `${constantsConfig.BASE_URL}/api/auth/user-login`
+                    `${constantsConfig.BASE_URL}/api/auth/user-working`
                 );
                 console.log("Response:", response.data);
             } catch (error) {

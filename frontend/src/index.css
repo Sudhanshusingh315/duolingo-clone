@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-@theme {
-    --background-color: #131f24;
-}
-
 .border {
     /* to help giving borders */
     border: 2px solid red;
@@ -58,7 +54,7 @@ button[variant="ghost"] {
 }
 
 button[variant="sidebar"] {
-    @apply bg-transparent text-slate-500 border-transparent border-2 border-transparent hover:bg-slate-100 transition-none;
+    @apply bg-transparent text-slate-500 border-transparent border-2  hover:bg-slate-100 transition-none;
 }
 
 button[variant="sidebar-outline"] {
@@ -83,5 +79,3 @@ button[variant="primary"] {
     aspect-ratio: 1/1;
     border-radius: 50%;
 }
-
-

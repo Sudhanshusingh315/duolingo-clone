@@ -1,0 +1,58 @@
+.auth-box {
+    width: 700px;
+    border: 2px solid green;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-box > * {
+    flex: 1;
+}
+
+.left-side {
+    img {
+        display: block;
+        object-fit: cover;
+        max-width: 100%;
+        border-radius: inherit;
+    }
+}
+picture {
+    border-radius: 1.2em;
+}
+.right-side {
+    display: grid;
+    place-content: center;
+    padding: 1em;
+    gap: 0.875em;
+    input {
+        padding: 0.875rem;
+        outline: 1px solid lightgreen;
+        border-radius: 0.75rem;
+    }
+    button {
+        place-self: center;
+    }
+}
+
+@media (max-width: 500px) {
+    .auth-box {
+        display: flex;
+        flex-direction: column;
+        border: none;
+        width: 100%;
+        padding: 0.87em;
+        margin-inline: 0.875em;
+        border: 2px solid green;
+    }
+    .right-side {
+        width: 100%;
+        place-content: stretch;
+        button {
+            place-self: stretch;
+        }
+    }
+}

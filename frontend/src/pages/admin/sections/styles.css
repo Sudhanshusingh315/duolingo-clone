@@ -11,7 +11,9 @@
     --clr-4: #2d8f85;
     --clr-5: #637c54;
 }
-
+body {
+    background-color: white;
+}
 .progress-bar {
     background-color: green;
     width: 0%;
