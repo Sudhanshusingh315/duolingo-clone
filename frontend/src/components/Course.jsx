@@ -10,7 +10,7 @@ export default function Course({
     // gonna get the chapters here so render those from here.
 
     return (
-        <>
+        <div>
             <div className="flex items-center">
                 <p className="flex-1 horizontal-border "></p>
                 <p className="text-xl font-semibold text-gray-400 mx-4">
@@ -31,6 +31,6 @@ export default function Course({
                     );
                 })}
             </div>
-        </>
+        </div>
     );
 }

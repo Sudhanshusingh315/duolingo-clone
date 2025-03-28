@@ -2,31 +2,13 @@ import React, { useEffect, useState } from "react";
 import fire from "../../assets/duolingofire.svg";
 import heart from "../../assets/red-heart.svg";
 import ReactCountryFlag from "react-country-flag";
-import Course from "../../components/Course";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourseByLang } from "../../features/course/courseMaterial";
-import axios from "axios";
-import { constantsConfig } from "../../constants";
-
+import "./styles.css";
+import { Outlet } from "react-router-dom";
 export default function Main() {
-    const [testArray, newTestArray] = useState(Array(5).fill(""));
     const { courses } = useSelector((state) => state.course);
     const dispatch = useDispatch();
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                console.log("Fetching user login data...");
-                const response = await axios.get(
-                    `${constantsConfig.BASE_URL}/api/auth/user-working`
-                );
-                console.log("Response:", response.data);
-            } catch (error) {
-                console.error("Error fetching user login data:", error);
-            }
-        };
-
-        fetchData();
-    }, []);
 
     useEffect(() => {
         // todo: FIX THIS BEFORE GOING TO THE QUIZ STAGE
@@ -34,16 +16,19 @@ export default function Main() {
         dispatch(fetchCourseByLang("67b9953e651af2dbf46cdab9"));
     }, []);
     return (
-        <div className="flex flex-col min-h-screen bg-teal-950 px-4 py-2 ">
+        <div className="main-container">
             {/* header */}
-            <div className="flex justify-between items-center py-4 ">
-                <ReactCountryFlag
-                    className="emojiFlag "
-                    style={{
-                        fontSize: "2em",
-                    }}
-                    countryCode="IN"
-                />
+            <div className="main-container-sidebar">
+                <div className="test-lang ">
+                    <ReactCountryFlag
+                        className="emojiFlag "
+                        style={{
+                            fontSize: "2em",
+                        }}
+                        countryCode="IN"
+                    />
+                    <p className="hidden">Language</p>
+                </div>
                 {/* todo: hover effects */}
                 <div className="inline-flex justify-center items-center text-xl gap-2">
                     <img src={fire} alt="" />
@@ -64,33 +49,10 @@ export default function Main() {
 
             {/* main content of the lessons */}
             {/* todo: overflow scrollable div */}
-            <div className="flex-auto">
+            <div className="flex-auto main-container-middle">
                 {/* heading */}
-
-                {courses?.map(
-                    (
-                        {
-                            languageId,
-                            name,
-                            description,
-                            difficultyLevel,
-                            chapters,
-                        },
-                        index
-                    ) => {
-                        return (
-                            <React.Fragment key={index}>
-                                <Course
-                                    languageId={languageId}
-                                    name={name}
-                                    description={description}
-                                    difficultyLevel={difficultyLevel}
-                                    chapters={chapters}
-                                />
-                            </React.Fragment>
-                        );
-                    }
-                )}
+                <Outlet />
+                {/* <TestComponents /> */}
             </div>
             {/* footer that would become a side bar on the bigger screens */}
             <div>Footer section</div>

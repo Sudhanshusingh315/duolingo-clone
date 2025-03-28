@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const passport = require("passport");
-require("./utils/passportfile");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const session = require("express-session");

@@ -1,9 +1,11 @@
-import { AxiosHeaders } from "axios";
-import { useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import dl from "../../assets/duolingo-auth.jpg";
 import dl2 from "../../assets/duolingo-auth-2.jpg";
 import "./styles.css";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { userLogin, userRegister } from "../../features/auth/auth";
+
 export default function Auth() {
     const [searchParams] = useSearchParams();
     const isLogin = searchParams.get("isLogin");
@@ -11,15 +13,43 @@ export default function Auth() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
-
-    const handleAuth = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const handleAuth = async () => {
         if (isLogin) {
             // login api
             // redirect and to the lesson
+            const data = {
+                email,
+                password,
+            };
+            dispatch(userLogin(data)).then((res) => {
+                console.log("coming from dispatch auth", res);
+                const { payload } = res;
+                if (payload?.accessToken) {
+                    navigate("/lesson/lang-course");
+                }
+            });
         } else {
             // register api
             // redirect and to the login screen and then login
+            const data = {
+                name,
+                email,
+                password,
+            };
+            dispatch(userRegister(data)).then((res) => {
+                console.log("coming from dispatch auth", res);
+                const { payload } = res;
+                if (payload?.accessToken) {
+                    navigate("/lesson");
+                }
+            });
         }
+
+        setEmail("");
+        setName("");
+        setPassword("");
     };
 
     return (
@@ -60,7 +90,11 @@ export default function Auth() {
                             }}
                         />
 
-                        <button className="button" variant="secondary">
+                        <button
+                            className="button"
+                            variant="secondary"
+                            onClick={handleAuth}
+                        >
                             {isLogin ? "Login" : "Register"}
                         </button>
                     </div>

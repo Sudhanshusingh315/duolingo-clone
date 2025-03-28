@@ -13,9 +13,12 @@ import { QuizDataContextProvider } from "./context/quizDataContext";
 import { LessonContextProvider } from "./context/lessonContext";
 import Auth from "./pages/auth/Auth";
 import MarketingPage from "./pages/makerting/MarketingPage";
+import TestComponents from "./components/testComponents";
+import LanguageList from "./components/LanguageList";
 
 function App() {
     return (
+        // todo: make some of these routes protected
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<MarketingPage />} />
@@ -32,7 +35,13 @@ function App() {
                     <Route path="chapters" element={<ChapterSection />} />
                     <Route path="quiz" element={<QuizSection />} />
                 </Route>
-                <Route path="/lesson" element={<Main />} />
+                <Route path="/lesson" element={<Main />}>
+                    <Route
+                        path="course-component"
+                        element={<TestComponents />}
+                    />
+                    <Route path="lang-course" element={<LanguageList />} />
+                </Route>
                 <Route
                     path="/lessonQuiz/:lessonId"
                     element={

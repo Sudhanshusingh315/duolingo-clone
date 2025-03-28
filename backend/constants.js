@@ -1,6 +1,7 @@
 require("dotenv").config();
 const configEnv = {
     mongodbConnectionString: process.env.DATABASE,
+    jwtSecret: process.env.jwt,
 };
 
 const difficultyLevel = {
@@ -22,9 +23,23 @@ const passportGoogleCredentials = {
     GOOGLE_CLIENT_SECRET: process.env.CLIENT_SECRET,
 };
 
+const countryCodeEnum = [
+    "US",
+    "CA",
+    "GB",
+    "AU",
+    "IN",
+    "DE",
+    "FR",
+    "JP",
+    "CN",
+    "BR",
+];
+
 module.exports = {
     configEnv,
     difficultyLevel,
     lessonType,
     passportGoogleCredentials,
+    countryCodeEnum,
 };
