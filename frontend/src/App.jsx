@@ -15,6 +15,7 @@ import Auth from "./pages/auth/Auth";
 import MarketingPage from "./pages/makerting/MarketingPage";
 import TestComponents from "./components/testComponents";
 import LanguageList from "./components/LanguageList";
+import { SideBarDataContextProvider } from "./context/sideBarContext";
 
 function App() {
     return (
@@ -35,7 +36,14 @@ function App() {
                     <Route path="chapters" element={<ChapterSection />} />
                     <Route path="quiz" element={<QuizSection />} />
                 </Route>
-                <Route path="/lesson" element={<Main />}>
+                <Route
+                    path="/lesson"
+                    element={
+                        <SideBarDataContextProvider>
+                            <Main />
+                        </SideBarDataContextProvider>
+                    }
+                >
                     <Route
                         path="course-component"
                         element={<TestComponents />}

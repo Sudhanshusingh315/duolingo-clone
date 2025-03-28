@@ -11,4 +11,7 @@ const { protected } = require("../middlewares/protected");
 router.post("/user-login", login);
 router.post("/user-register", register);
 router.post("/user/opted-languages", protected, userSelectedLanguages);
+
+// user progression
+
 module.exports = router;

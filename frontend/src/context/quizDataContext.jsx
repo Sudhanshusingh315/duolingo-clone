@@ -1,6 +1,5 @@
 import { createContext, useState } from "react";
 
-
 export const QuizDataContext = createContext(null);
 
 export const QuizDataContextProvider = ({ children }) => {

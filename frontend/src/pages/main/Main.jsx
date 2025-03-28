@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import fire from "../../assets/duolingofire.svg";
 import heart from "../../assets/red-heart.svg";
 import ReactCountryFlag from "react-country-flag";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCourseByLang } from "../../features/course/courseMaterial";
 import "./styles.css";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { SideBarContext } from "../../context/sideBarContext";
 export default function Main() {
-    const { courses } = useSelector((state) => state.course);
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { selectedLang } = useContext(SideBarContext);
 
-    useEffect(() => {
-        // todo: FIX THIS BEFORE GOING TO THE QUIZ STAGE
-        // todo: make the language section as soon as possible so that you can then add the real id here
-        dispatch(fetchCourseByLang("67b9953e651af2dbf46cdab9"));
-    }, []);
+    const handleNavigation = () => {
+        navigate("/lesson/lang-course");
+    };
     return (
         <div className="main-container">
             {/* header */}
             <div className="main-container-sidebar">
-                <div className="test-lang ">
+                <div
+                    className="test-lang cursor-pointer"
+                    onClick={handleNavigation}
+                >
                     <ReactCountryFlag
                         className="emojiFlag "
                         style={{
                             fontSize: "2em",
                         }}
-                        countryCode="IN"
+                        countryCode={selectedLang || "IN"}
                     />
                     <p className="hidden">Language</p>
                 </div>

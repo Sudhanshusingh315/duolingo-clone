@@ -1,11 +1,14 @@
 import ReactCountryFlag from "react-country-flag";
 import { constantsConfig, countries } from "../constants";
 import "./styles.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { SideBarContext } from "../context/sideBarContext";
 export default function LanguageList() {
+    const { setSelectedLang } = useContext(SideBarContext);
+    console.log("use context", setSelectedLang);
     const [myLange, setMyLang] = useState();
     const { accessToken, userInfo } = useSelector((state) => state.auth);
     const navigate = useNavigate();
@@ -39,6 +42,7 @@ export default function LanguageList() {
             },
         });
         navigate(`/lesson/course-component?languageCode=${code}`);
+        setSelectedLang(code);
     };
 
     return (

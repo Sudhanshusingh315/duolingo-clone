@@ -9,21 +9,27 @@ import { constantsConfig } from "../constants";
 export default function TestComponents() {
     const dispatch = useDispatch();
     const { courses } = useSelector((state) => state.course);
-    const [languageId, setLanguageId] = useState();
+    const [languageId, setLanguageId] = useState("");
     const [searchParams, setSearchParams] = useSearchParams();
     const languageCode = searchParams?.get("languageCode");
-
+    console.log("languageCode", languageCode);
     useEffect(() => {
         if (!languageCode) return;
         (async () => {
             console.log("woking");
-            const {
-                data: { data },
-            } = await axios({
-                url: `${constantsConfig.BASE_URL}/api/language//get-language/${languageCode}`,
-            });
-            const { id } = data;
-            setLanguageId(id);
+            try {
+                const {
+                    data: { data },
+                } = await axios({
+                    url: `${constantsConfig.BASE_URL}/api/language//get-language/${languageCode}`,
+                });
+                console.log("data", data);
+                const { id } = data[0];
+                console.log("langId", id);
+                setLanguageId(id);
+            } catch (err) {
+                console.log("error ", err);
+            }
         })();
     }, [languageCode]);
 
@@ -31,6 +37,7 @@ export default function TestComponents() {
         // todo: FIX THIS BEFORE GOING TO THE QUIZ STAGE
         // todo: make the language section as soon as possible so that you can then add the real id here
         if (!languageId) return;
+        console.log("making the api all");
         dispatch(fetchCourseByLang(languageId));
     }, [languageId]);
     return (
