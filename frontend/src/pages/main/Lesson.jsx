@@ -42,7 +42,6 @@ export default function Lesson() {
     // state determining the answers;
     answerProgressRef.current = (currentIndex / quizzes?.length) * 100;
 
-    
     useEffect(() => {
         (async () => {
             const { data } = await axios({
@@ -50,6 +49,7 @@ export default function Lesson() {
             });
             const { data: newData } = data;
             const { quiz } = newData[0];
+            console.log("all of the lessons", newData);
             setQuizzes((prev) => {
                 return [...quiz];
             });

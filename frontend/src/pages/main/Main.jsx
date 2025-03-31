@@ -3,12 +3,18 @@ import fire from "../../assets/duolingofire.svg";
 import heart from "../../assets/red-heart.svg";
 import ReactCountryFlag from "react-country-flag";
 import "./styles.css";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { SideBarContext } from "../../context/sideBarContext";
+import house from "../../assets/house.svg";
+import leaderBoard from "../../assets/leaderBoard.png";
+import store from "../../assets/store.svg";
+import treasure from "../../assets/treasure.svg";
+import profile from "../../assets/profile.png";
+
 export default function Main() {
     const navigate = useNavigate();
     const { selectedLang } = useContext(SideBarContext);
-
+    const { heart: heartValue } = useContext(SideBarContext);
     const handleNavigation = () => {
         navigate("/lesson/lang-course");
     };
@@ -36,7 +42,9 @@ export default function Main() {
                 </div>{" "}
                 <div className="inline-flex justify-center items-center text-xl gap-2 hover">
                     <img src={heart} alt="" />
-                    <span className="text-rose-600 font-bold">5</span>
+                    <span className="text-rose-600 font-bold">
+                        {heartValue}
+                    </span>
                 </div>
             </div>
 
@@ -55,7 +63,23 @@ export default function Main() {
                 {/* <TestComponents /> */}
             </div>
             {/* footer that would become a side bar on the bigger screens */}
-            <div>Footer section</div>
+            <div className="footer-section">
+                <Link to={"/lesson/practice-hub"}>
+                    <img src={house} alt="" />
+                </Link>
+                <div>
+                    <img src={leaderBoard} alt="" />
+                </div>
+                <div>
+                    <img src={store} alt="" />
+                </div>
+                <div>
+                    <img src={treasure} alt="" />
+                </div>
+                <div>
+                    <img src={profile} alt="" />
+                </div>
+            </div>
         </div>
     );
 }

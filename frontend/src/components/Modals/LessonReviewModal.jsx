@@ -1,6 +1,15 @@
-import { CirclePlus, Cross } from "lucide-react";
+import { useContext } from "react";
 import "./styles.css";
+import { SideBarContext } from "../../context/sideBarContext";
+import { useNavigate } from "react-router-dom";
 export default function LessonReviewModal({ show, setShow }) {
+    const { handleNextQuiz, selectedLang } = useContext(SideBarContext);
+    const navigate = useNavigate();
+    const next = async () => {
+        await handleNextQuiz();
+        navigate(`/lesson/course-component?languageCode=${selectedLang}`);
+    };
+
     return (
         show && (
             <div className="dialog">
@@ -42,6 +51,7 @@ export default function LessonReviewModal({ show, setShow }) {
                         <button
                             variant="secondary-outline"
                             className="button text-sm"
+                            onClick={next}
                         >
                             Next Quiz
                         </button>

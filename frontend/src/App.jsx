@@ -16,6 +16,7 @@ import MarketingPage from "./pages/makerting/MarketingPage";
 import TestComponents from "./components/testComponents";
 import LanguageList from "./components/LanguageList";
 import { SideBarDataContextProvider } from "./context/sideBarContext";
+import PracticeHub from "./pages/main/PracticeHub";
 
 function App() {
     return (
@@ -49,13 +50,16 @@ function App() {
                         element={<TestComponents />}
                     />
                     <Route path="lang-course" element={<LanguageList />} />
+                    <Route path="practice-hub" element={<PracticeHub />} />
                 </Route>
                 <Route
                     path="/lessonQuiz/:lessonId"
                     element={
-                        <LessonContextProvider>
-                            <Lesson />
-                        </LessonContextProvider>
+                        <SideBarDataContextProvider>
+                            <LessonContextProvider>
+                                <Lesson />
+                            </LessonContextProvider>
+                        </SideBarDataContextProvider>
                     }
                 />
                 <Route path="/auth" element={<Auth />} />

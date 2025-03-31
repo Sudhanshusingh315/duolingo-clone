@@ -1,6 +1,13 @@
 import { Link } from "react-router";
-
-export default function LessonButton({ lessonId, index }) {
+import "./styles.css";
+import { Star, LockKeyhole } from "lucide-react";
+export default function LessonButton({
+    lessonId,
+    index,
+    active,
+    isCurrentChapter,
+}) {
+    const svgSize = 25;
     const cycleLenght = 8;
     const cycleIndex = index % cycleLenght;
     let indentationLevel;
@@ -25,12 +32,23 @@ export default function LessonButton({ lessonId, index }) {
 
     return (
         <Link
-            to={`/lessonQuiz/${lessonId}`}
+            to={active === "active" ? `/lessonQuiz/${lessonId}` : ``}
             key={index}
-            className="mt-4 w-20 aspect-square rounded-full bg-green-400 relative border-b-6 border-b-green-600 cursor-pointer active:bg-green-500 active:border-b-0"
+            className="lesson-button"
+            data-active={active}
             style={{
                 right: `${leftPosition}px`,
+                pointerEvents: `${active === "active" ? "" : "none"}`,
             }}
-        ></Link>
+            data-currentChapter={isCurrentChapter ? "start" : undefined}
+        >
+            <div className="meow">
+                {active === "active" ? (
+                    <Star size={svgSize} />
+                ) : (
+                    <LockKeyhole size={svgSize} />
+                )}
+            </div>
+        </Link>
     );
 }

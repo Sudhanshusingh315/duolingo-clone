@@ -1,6 +1,11 @@
 const { default: mongoose } = require("mongoose");
 const Language = require("../models/languageModel");
 const User = require("../models/userModel");
+const UserProgression = require("../models/userProgression");
+const Course = require("../models/courseModel");
+const {
+    getFirstChatperToStart,
+} = require("../aggregation/courses.aggreagation");
 
 // todo: validate all the requests
 
@@ -79,6 +84,44 @@ const addUserLanguage = async (req, res) => {
             },
             { new: true }
         );
+        const languageDetails = await Language.aggregate([
+            {
+                $match: {
+                    code: languageCode,
+                },
+            },
+        ]);
+        const { _id: languageId } = languageDetails[0];
+
+        // start user progression
+        // check if they already have a course
+        // make one if not,
+        let startUserProgression;
+
+        startUserProgression = await UserProgression.aggregate([
+            {
+                $match: {
+                    userId,
+                    userLang: languageId,
+                },
+            },
+        ]);
+
+        if (!startUserProgression.length) {
+            // now you can create a userporgression
+
+            // get the starting chapter now
+            const chapterStart = await Course.aggregate(
+                getFirstChatperToStart()
+            );
+
+            startUserProgression = await UserProgression.create({
+                userId,
+                userLang: languageId,
+                currentChapter: chapterStart[0].chapters || null,
+                currentCourse: chapterStart[0].id,
+            });
+        }
 
         if (!updateUserLang) {
             throw new Error("could not update the field");

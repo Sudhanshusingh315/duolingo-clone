@@ -42,7 +42,7 @@ export default function Auth() {
                 console.log("coming from dispatch auth", res);
                 const { payload } = res;
                 if (payload?.accessToken) {
-                    navigate("/lesson");
+                    navigate("/lesson/lang-course");
                 }
             });
         }

@@ -1,5 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { lessonType } from "../constants";
+import { SideBarContext } from "./sideBarContext";
 
 export const LessonContext = createContext(null);
 
@@ -18,6 +19,22 @@ export const LessonContextProvider = ({ children }) => {
 
     const [isCorrectAnswer, setIsCorrectAnswer] = useState(null);
     const [moveToNext, setMoveToNext] = useState(false);
+
+    // user Progression
+
+    const { heart, setHeart } = useContext(SideBarContext);
+    console.log("use context in lesson", useContext(SideBarContext));
+
+    const checkHeartBeat = () => {
+        if (heart === 0) {
+            alert("make the modal and end the user");
+        }
+        setHeart((prev) => {
+            if (prev < 0) return prev;
+            return prev - 1;
+        });
+    };
+
     const handleCheckAnswer = () => {
         // this holds the data from the current quiz
         const currentQuiz = quizzes[currentIndex];
@@ -36,6 +53,7 @@ export const LessonContextProvider = ({ children }) => {
                 } else {
                     console.log("wrong answer");
                     setIsCorrectAnswer(false);
+                    checkHeartBeat();
                 }
                 // will check for answers like this
                 break;
@@ -54,6 +72,7 @@ export const LessonContextProvider = ({ children }) => {
                 if (!isInvalidState(userAnswerDragAndDrop)) {
                     setIsCorrectAnswer(false);
                     failedAlready = true;
+                    checkHeartBeat();
                 }
                 const validateCategories = (userAnswerDragAndDrop) => {
                     for (const category in userAnswerDragAndDrop) {
@@ -75,12 +94,14 @@ export const LessonContextProvider = ({ children }) => {
                 if (!userAnswerMatch) {
                     console.log("inside the match case");
                     setIsCorrectAnswer(false);
+                    checkHeartBeat();
                 }
                 break;
             case lessonType.MEMORYGAME:
                 // will check for answers like this
                 if (!userAnswerMemoryMatch) {
                     setIsCorrectAnswer(false);
+                    checkHeartBeat();
                 }
                 break;
             default:

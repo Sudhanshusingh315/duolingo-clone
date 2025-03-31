@@ -22,8 +22,22 @@
 
 .main-container-middle {
     border: 1px solid var(--clr-4);
-    padding: 2rem 4rem;
+    padding: 1rem;
     overflow: hidden;
+}
+
+.footer-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 1rem;
+    img {
+        display: block;
+        width: 50px;
+        object-fit: cover;
+        max-width: 100%;
+        cursor: pointer;
+    }
 }
 
 @media (min-width: 600px) {

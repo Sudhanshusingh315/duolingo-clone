@@ -1,14 +1,11 @@
+import { useContext } from "react";
 import LessonButton from "./LessonButton";
-export default function Course({
-    languageId,
-    name,
-    description,
-    difficultyLevel,
-    chapters,
-}) {
+import { SideBarContext } from "../context/sideBarContext";
+export default function Course({ name, chapters }) {
     // gonna get the title here
     // gonna get the chapters here so render those from here.
-
+    const { userProgression } = useContext(SideBarContext);
+    console.log("userProgression ", userProgression);
     return (
         <div>
             <div className="flex items-center">
@@ -27,6 +24,17 @@ export default function Course({
                             lessonId={lessonId}
                             key={index}
                             index={index}
+                            active={
+                                userProgression?.completedChaters?.includes(
+                                    lessonId
+                                ) ||
+                                userProgression?.currentChapter === lessonId
+                                    ? "active"
+                                    : "inactive"
+                            }
+                            isCurrentChapter={
+                                lessonId === userProgression?.currentChapter
+                            }
                         />
                     );
                 })}
