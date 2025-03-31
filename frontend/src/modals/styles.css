@@ -1,0 +1,66 @@
+.warning-modal-wrapping {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.warning-modal {
+    width: 50%;
+    max-width: 300px;
+    aspect-ratio: 1/1;
+    background-color: var(--clr-2);
+    padding: 2.5rem;
+    border-radius: 2.5rem;
+
+    img {
+        display: block;
+        width: 50%;
+        object-fit: cover;
+        margin-inline: auto;
+    }
+    p {
+        font-weight: 800;
+        text-align: center;
+        color: white;
+        margin-block: 1em;
+    }
+
+    animation-name: scale;
+    animation-duration: 350ms;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.button-back {
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+    padding: 0.875em 1em;
+    background-color: var(--clr-3);
+    font-weight: 700;
+    border-radius: 0.875em;
+    color: greenyellow;
+    border-top: 2px solid;
+    border-left: 2px solid;
+    border-right: 2px solid;
+    border-bottom: 4px solid;
+    border-color: greenyellow;
+    outline: none;
+    cursor: pointer;
+    transition: scale 100ms ease;
+}
+.button-back:active {
+    scale: 0.9;
+}
+
+@keyframes scale {
+    0% {
+        scale: 0;
+    }
+    100% {
+        scale: 1;
+    }
+}

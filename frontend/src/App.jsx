@@ -17,6 +17,7 @@ import TestComponents from "./components/testComponents";
 import LanguageList from "./components/LanguageList";
 import { SideBarDataContextProvider } from "./context/sideBarContext";
 import PracticeHub from "./pages/main/PracticeHub";
+import LeaderBoard from "./pages/main/LeaderBoard";
 
 function App() {
     return (
@@ -51,6 +52,7 @@ function App() {
                     />
                     <Route path="lang-course" element={<LanguageList />} />
                     <Route path="practice-hub" element={<PracticeHub />} />
+                    <Route path="leader-board" element={<LeaderBoard />} />
                 </Route>
                 <Route
                     path="/lessonQuiz/:lessonId"

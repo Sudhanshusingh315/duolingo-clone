@@ -7,7 +7,6 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { SideBarContext } from "../../context/sideBarContext";
 import house from "../../assets/house.svg";
 import leaderBoard from "../../assets/leaderBoard.png";
-import store from "../../assets/store.svg";
 import treasure from "../../assets/treasure.svg";
 import profile from "../../assets/profile.png";
 
@@ -67,12 +66,9 @@ export default function Main() {
                 <Link to={"/lesson/practice-hub"}>
                     <img src={house} alt="" />
                 </Link>
-                <div>
+                <Link to={"/lesson/leader-board"}>
                     <img src={leaderBoard} alt="" />
-                </div>
-                <div>
-                    <img src={store} alt="" />
-                </div>
+                </Link>
                 <div>
                     <img src={treasure} alt="" />
                 </div>

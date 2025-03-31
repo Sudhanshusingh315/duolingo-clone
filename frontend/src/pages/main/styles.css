@@ -40,6 +40,168 @@
     }
 }
 
+/* practice hub */
+.practice-hub {
+    --margin-bottom: 0.85em;
+    padding: 0.875rem 1rem;
+}
+
+.practice-hub-title {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.practice-hub-section {
+    padding: 3rem 1rem;
+    display: grid;
+    flex-grow: 1;
+    min-width: 70%;
+    h2 {
+        font-size: 1.2rem;
+        color: white;
+        font-weight: 700;
+        width: 100%;
+        text-wrap-style: pretty;
+        margin-bottom: var(--margin-bottom);
+    }
+    img {
+        margin-bottom: var(--margin-bottom);
+        width: 100%;
+        object-fit: contain;
+        display: block;
+    }
+    div {
+        font-size: 15px;
+        color: white;
+    }
+}
+
+.conversation {
+    color: white;
+    font-weight: 800;
+    font-size: 1.7rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.super-speak-contect {
+    flex-grow: 1;
+    padding-left: 0.85em;
+    margin-block: 1rem;
+    p {
+        color: hsl(0, 0%, 80%);
+        font-size: 14px;
+    }
+}
+
+.super-speak {
+    display: flex;
+    border-top: 2px solid;
+    border-left: 2px solid;
+    border-right: 2px solid;
+    border-bottom: 4px solid;
+    border-color: grey;
+    border-radius: 0.5em;
+    overflow: hidden;
+    margin-bottom: 3rem;
+}
+.speak-container {
+    display: flex;
+    align-items: center;
+    p {
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 800;
+    }
+    img {
+        margin-left: 10px;
+        object-fit: cover;
+        height: 20px;
+        min-width: 5px;
+        display: block;
+    }
+}
+
+.mic-container {
+    margin-top: auto;
+    img {
+        width: 100%;
+        display: block;
+        object-fit: cover;
+    }
+}
+
+.practice-hub-pefect {
+    --color-gamma: hsl(138, 92%, 56%);
+    --color-starlight: hsl(212, 100%, 57%);
+    --color-quasar: hsl(299, 100%, 67%);
+    --color-eclipse: hsl(236, 100%, 11%);
+    border-radius: 0.5em;
+    background: radial-gradient(
+            circle at 6% 3%,
+            hsla(138, 92%, 56%, 0.3) 0%,
+            hsla(212, 100%, 57%, 0.3) 52%,
+            hsla(299, 100%, 67%, 0.3) 100%
+        ),
+        hsl(236, 100%, 11%);
+    display: flex;
+}
+.test-side {
+    margin-top: auto;
+}
+.lady {
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Leader board */
+.leader-board-primary {
+    color: white;
+    width: 80%;
+    margin-inline: auto;
+    img {
+        width: 70%;
+        margin-inline: auto;
+        display: block;
+        object-fit: cover;
+        margin-bottom: 0.875rem;
+    }
+    p {
+        font-size: 1.2rem;
+        text-align: center;
+        font-weight: 800;
+        margin-bottom: 0.5em;
+    }
+    .sub-text {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .button-leaderBoard {
+        cursor: pointer;
+        width: fit-content;
+        max-width: 100%;
+        margin-inline: auto;
+        padding: 0.875em 1em;
+        background-color: var(--clr-3);
+        font-weight: 700;
+        border-radius: 0.875em;
+        color: greenyellow;
+        border-top: 2px solid;
+        border-left: 2px solid;
+        border-right: 2px solid;
+        border-bottom: 4px solid;
+        border-color: greenyellow;
+        outline: none;
+        transition: scale 100ms ease;
+    }
+    .button-leaderBoard:active {
+        scale: 0.9;
+    }
+}
+
 @media (min-width: 600px) {
     .main-container {
         display: flex;
