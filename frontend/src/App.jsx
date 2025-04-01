@@ -18,6 +18,7 @@ import LanguageList from "./components/LanguageList";
 import { SideBarDataContextProvider } from "./context/sideBarContext";
 import PracticeHub from "./pages/main/PracticeHub";
 import LeaderBoard from "./pages/main/LeaderBoard";
+import ShopSection from "./pages/main/Shop";
 
 function App() {
     return (
@@ -53,6 +54,7 @@ function App() {
                     <Route path="lang-course" element={<LanguageList />} />
                     <Route path="practice-hub" element={<PracticeHub />} />
                     <Route path="leader-board" element={<LeaderBoard />} />
+                    <Route path="shop" element={<ShopSection />} />
                 </Route>
                 <Route
                     path="/lessonQuiz/:lessonId"

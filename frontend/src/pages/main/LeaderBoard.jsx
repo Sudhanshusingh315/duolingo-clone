@@ -2,7 +2,7 @@ import { useState } from "react";
 import WarningModal from "../../modals/WarningModal";
 import "./styles.css";
 export default function LeaderBoard() {
-    const [openWarning, setOpenWarning] = useState(true);
+    const [openWarning, setOpenWarning] = useState(false);
     return (
         <>
             <div className="leader-board-primary">
