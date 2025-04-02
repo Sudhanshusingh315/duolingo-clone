@@ -1,10 +1,43 @@
-import { useState } from "react";
 import "./styles.css";
-import { HeartPulse } from "lucide-react";
+import { Currency, HeartPulse } from "lucide-react";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { constantsConfig } from "../../constants";
 export default function ShopSection() {
-    const stroke = [10, 8, 10];
-    const [index, setIndex] = useState(0);
-
+    console.log("this window", window);
+    const { userInfo } = useSelector((state) => state.auth);
+    const checkOutHandler = async (amount) => {
+        const data = {
+            amount,
+        };
+        const {
+            data: { data: checkoutData, key },
+        } = await axios({
+            url: `${constantsConfig.BASE_URL}/api/payments/checkout`,
+            method: "post",
+            data,
+        });
+        console.log("key", key);
+        console.log("checkout data", checkoutData);
+        const { currency, id } = checkoutData;
+        const options = {
+            key,
+            amount,
+            currency,
+            name: "Meow",
+            order_id: id, // This is the order_id created in the backend
+            callback_url: "http://localhost:5000/api/payments/success", // Your success URL
+            prefill: {
+                name: userInfo.email,
+                email: userInfo.email,
+            },
+            theme: {
+                color: "#2d8f85",
+            },
+        };
+        const rzp = new Razorpay(options);
+        rzp.open();
+    };
     return (
         <>
             <div className="heart-section">
@@ -22,7 +55,13 @@ export default function ShopSection() {
                             mistakes in a lesson
                         </p>
                     </div>
-                    <button>5x</button>
+                    <button
+                        onClick={() => {
+                            checkOutHandler(50);
+                        }}
+                    >
+                        5x
+                    </button>
                 </div>
 
                 <div className="heart-refil">
@@ -38,7 +77,13 @@ export default function ShopSection() {
                             mistakes in a lesson
                         </p>
                     </div>
-                    <button>50x</button>
+                    <button
+                        onClick={() => {
+                            checkOutHandler(500);
+                        }}
+                    >
+                        50x
+                    </button>
                 </div>
             </div>
         </>

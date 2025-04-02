@@ -2,6 +2,9 @@ require("dotenv").config();
 const configEnv = {
     mongodbConnectionString: process.env.DATABASE,
     jwtSecret: process.env.jwt,
+    razorpay_id: process.env.RAZORPAY_ID,
+    razorpay_secrete: process.env.RAZORPAY_SECRETE,
+    razorpay_webhook_secrete: process.env.WEBHOOK_SECRETE,
 };
 
 const difficultyLevel = {

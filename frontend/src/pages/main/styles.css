@@ -42,6 +42,7 @@
     justify-content: space-between;
     align-items: center;
     padding-block: 1rem;
+    border: 1px solid var(--clr-4);
     img {
         display: block;
         width: 50px;
