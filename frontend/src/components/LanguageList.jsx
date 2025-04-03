@@ -4,14 +4,19 @@ import "./styles.css";
 import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { SideBarContext } from "../context/sideBarContext";
+import PaymentModal from "./Modals/PaymentModal";
 export default function LanguageList() {
     const { setSelectedLang } = useContext(SideBarContext);
     console.log("use context", setSelectedLang);
     const [myLange, setMyLang] = useState();
     const { accessToken, userInfo } = useSelector((state) => state.auth);
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const payment = searchParams?.get("payment");
+    const hearts = searchParams?.get("hearts");
+    const [showPayment, setShowPayment] = useState(payment);
     console.log("my languages", myLange);
     useEffect(() => {
         (async () => {
@@ -46,36 +51,45 @@ export default function LanguageList() {
     };
 
     return (
-        <div className="language-container">
-            <h1 className="language-container-title">
-                Language Courses for English Speakers
-            </h1>
-            <div className="language-box-container">
-                {countries?.map(({ name, code }, index) => {
-                    return (
-                        <div key={index} className="language-box-outter">
-                            {myLange?.includes(code) && (
-                                <p className="selected">SELECTED</p>
-                            )}
-                            <div
-                                className="language-box"
-                                onClick={() => {
-                                    handleAddLanguage(code);
-                                }}
-                            >
-                                <ReactCountryFlag
-                                    countryCode={code}
-                                    className="emoji-box"
-                                    style={{
-                                        fontSize: "5em",
+        <>
+            <div className="language-container">
+                <h1 className="language-container-title">
+                    Language Courses for English Speakers
+                </h1>
+                <div className="language-box-container">
+                    {countries?.map(({ name, code }, index) => {
+                        return (
+                            <div key={index} className="language-box-outter">
+                                {myLange?.includes(code) && (
+                                    <p className="selected">SELECTED</p>
+                                )}
+                                <div
+                                    className="language-box"
+                                    onClick={() => {
+                                        handleAddLanguage(code);
                                     }}
-                                />
-                                <p className="language-name">{name}</p>
+                                >
+                                    <ReactCountryFlag
+                                        countryCode={code}
+                                        className="emoji-box"
+                                        style={{
+                                            fontSize: "5em",
+                                        }}
+                                    />
+                                    <p className="language-name">{name}</p>
+                                </div>
                             </div>
-                        </div>
-                    );
-                })}
+                        );
+                    })}
+                </div>
             </div>
-        </div>
+            {/* payment */}
+            <PaymentModal
+                payment={showPayment}
+                hearts={hearts}
+                setShowPayment={setShowPayment}
+                setSearchParams={setSearchParams}
+            />
+        </>
     );
 }

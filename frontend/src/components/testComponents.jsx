@@ -9,8 +9,12 @@ import { SideBarContext } from "../context/sideBarContext";
 
 export default function TestComponents() {
     const dispatch = useDispatch();
-    const { setUserProgression, setHeart, setUserCourses } =
-        useContext(SideBarContext);
+    const {
+        setUserProgression,
+        setHeart,
+        setUserCourses,
+        setSelectedLangCode,
+    } = useContext(SideBarContext);
     const { courses } = useSelector((state) => state.course);
     const { accessToken } = useSelector((state) => state.auth);
     const [languageId, setLanguageId] = useState("");
@@ -31,7 +35,9 @@ export default function TestComponents() {
                 console.log("data", data);
                 const { id } = data[0];
                 console.log("langId", id);
+
                 setLanguageId(id);
+                setSelectedLangCode(id);
             } catch (err) {
                 console.log("error ", err);
             }
@@ -39,8 +45,6 @@ export default function TestComponents() {
     }, [languageCode]);
 
     useEffect(() => {
-        // todo: FIX THIS BEFORE GOING TO THE QUIZ STAGE
-        // todo: make the language section as soon as possible so that you can then add the real id here
         if (!languageId) return;
         console.log("making the api all");
         dispatch(fetchCourseByLang(languageId));

@@ -19,6 +19,7 @@ import { SideBarDataContextProvider } from "./context/sideBarContext";
 import PracticeHub from "./pages/main/PracticeHub";
 import LeaderBoard from "./pages/main/LeaderBoard";
 import ShopSection from "./pages/main/Shop";
+import { OrderContextProvider } from "./context/orderContext";
 
 function App() {
     return (

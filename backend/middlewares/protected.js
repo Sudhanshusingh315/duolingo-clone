@@ -14,7 +14,11 @@ function protected(req, res, next) {
             throw new Error("Not Authorized, Login");
         }
         const decoded = jwt.verify(token, configEnv.jwtSecret);
+
+        if (!decoded) throw new Error("wrong token");
+        console.log("deconed token",decoded);
         req.body.userId = decoded.id;
+
         next();
     } catch (err) {
         console.log("error from protected.js", err);

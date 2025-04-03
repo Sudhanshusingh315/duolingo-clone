@@ -39,10 +39,13 @@ const countryCodeEnum = [
     "BR",
 ];
 
+const STATUS = { PENDING: "PENDING", COMPLETED: "COMPLETED" };
+
 module.exports = {
     configEnv,
     difficultyLevel,
     lessonType,
     passportGoogleCredentials,
     countryCodeEnum,
+    STATUS,
 };

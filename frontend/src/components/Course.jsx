@@ -1,11 +1,25 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import LessonButton from "./LessonButton";
 import { SideBarContext } from "../context/sideBarContext";
+import { useNavigate } from "react-router";
+import PlayAgainModal from "../modals/playAgainModal";
 export default function Course({ name, chapters }) {
     // gonna get the title here
     // gonna get the chapters here so render those from here.
     const { userProgression } = useContext(SideBarContext);
+    const [completedLessonId, setCompletedLessonId] = useState(null);
+
+    const [openPopUp, setOpenPopUp] = useState(false);
     console.log("userProgression ", userProgression);
+    const navigation = useNavigate();
+    const handleNavigation = (lessonId) => {
+        if (userProgression?.completedChaters?.includes(lessonId)) {
+            setOpenPopUp(true);
+            setCompletedLessonId(lessonId);
+            return;
+        }
+        navigation(`/lessonQuiz/${lessonId}`);
+    };
     return (
         <div>
             <div className="flex items-center">
@@ -35,10 +49,18 @@ export default function Course({ name, chapters }) {
                             isCurrentChapter={
                                 lessonId === userProgression?.currentChapter
                             }
+                            completedChaters={userProgression?.completedChaters}
+                            handleNavigation={handleNavigation}
                         />
                     );
                 })}
             </div>
+
+            <PlayAgainModal
+                completedLessonId={completedLessonId}
+                openPopUp={openPopUp}
+                setOpenPopUp={setOpenPopUp}
+            />
         </div>
     );
 }

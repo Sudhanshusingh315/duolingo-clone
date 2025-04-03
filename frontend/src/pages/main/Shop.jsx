@@ -3,20 +3,27 @@ import { Currency, HeartPulse } from "lucide-react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { constantsConfig } from "../../constants";
+import { useContext } from "react";
+import { SideBarContext } from "../../context/sideBarContext";
 export default function ShopSection() {
-    console.log("this window", window);
-    const { userInfo } = useSelector((state) => state.auth);
+    const { selectedLangCode } = useContext(SideBarContext);
+    const { userInfo, accessToken } = useSelector((state) => state.auth);
     const checkOutHandler = async (amount) => {
         const data = {
             amount,
+            userLangId: selectedLangCode,
         };
         const {
             data: { data: checkoutData, key },
         } = await axios({
             url: `${constantsConfig.BASE_URL}/api/payments/checkout`,
             method: "post",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
             data,
         });
+        const hearts = amount;
         console.log("key", key);
         console.log("checkout data", checkoutData);
         const { currency, id } = checkoutData;
@@ -24,15 +31,12 @@ export default function ShopSection() {
             key,
             amount,
             currency,
-            name: "Meow",
+            name: "Lingo",
             order_id: id, // This is the order_id created in the backend
-            callback_url: "http://localhost:5000/api/payments/success", // Your success URL
+            callback_url: `http://localhost:5000/api/payments/success/${hearts}`, // Your success URL
             prefill: {
                 name: userInfo.email,
                 email: userInfo.email,
-            },
-            theme: {
-                color: "#2d8f85",
             },
         };
         const rzp = new Razorpay(options);

@@ -6,6 +6,7 @@ export const SideBarContext = createContext(null);
 
 export const SideBarDataContextProvider = ({ children }) => {
     const [selectedLang, setSelectedLang] = useState("");
+    const [selectedLangCode, setSelectedLangCode] = useState("");
     const [userProgression, setUserProgression] = useState(null);
     const { accessToken } = useSelector((state) => state.auth);
     const [heart, setHeart] = useState(0);
@@ -49,6 +50,8 @@ export const SideBarDataContextProvider = ({ children }) => {
                 userCourse,
                 setUserCourses,
                 handleNextQuiz,
+                selectedLangCode,
+                setSelectedLangCode,
             }}
         >
             {children}

@@ -1,4 +1,5 @@
 const express = require("express");
+const { protected } = require("../middlewares/protected");
 const router = express.Router();
 const {
     checkout,
@@ -6,9 +7,9 @@ const {
     success,
 } = require("../controller/payments.controller");
 
-router.post("/checkout", checkout);
+router.post("/checkout", protected, checkout);
 
 router.post("/paymentVerification", paymentVerification);
-router.post("/success", success);
+router.post("/success/:hearts", success);
 
 module.exports = router;

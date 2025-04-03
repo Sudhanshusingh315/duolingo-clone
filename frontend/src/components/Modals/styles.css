@@ -56,3 +56,44 @@
 .sub-stat-box[type="heart"] {
     color: lightcoral;
 }
+
+.payment-parent {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,.9);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.payment-modal {
+    width: 40%;
+    aspect-ratio: 1/1;
+    border-radius: 1rem;
+    text-align:center;
+    background-color: var(--clr-3);
+    padding: 2rem;
+    color: white;
+    h1{
+        font-size: 2rem;
+        font-weight: 800;
+        color: greenyellow;
+        margin-bottom: .625em;
+    } 
+    
+    .sub-title{
+        font-size: 1.3rem;
+        font-weight: 800;
+    }
+
+    .sub-text{
+        font-size: 1.1rem;
+        font-weight: 500;
+
+        span{
+            color: red;
+        }
+    }
+
+
+}
