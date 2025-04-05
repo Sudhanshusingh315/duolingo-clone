@@ -9,12 +9,13 @@ import { SideBarContext } from "../context/sideBarContext";
 import WarningModal from "../components/Modals/WarningModalForNoCourse";
 import duoload from "../assets/duoload.gif";
 import { toast } from "react-toastify";
-import { Popsicle } from "lucide-react";
+import { Heater, Popsicle } from "lucide-react";
 
 export default function TestComponents() {
     const dispatch = useDispatch();
     const {
         setUserProgression,
+        heart,
         setHeart,
         setUserCourses,
         setSelectedLangCode,
@@ -87,7 +88,7 @@ export default function TestComponents() {
             }
         }
     }, [languageId]);
-
+    console.log("heart value from userPorgression api ", heart);
     console.log("these are the courses", courses);
     console.log("openWarning", openWarning);
     return (

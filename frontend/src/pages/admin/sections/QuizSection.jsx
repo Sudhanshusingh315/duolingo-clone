@@ -9,9 +9,12 @@ import ObjectiveTypeQuestion from "../questionTypes/ObjectiveTypeQuestionTemplae
 import DragAndDropTypeQuesiton from "../questionTypes/DragAndDropTypeQuestionTemplate";
 import MatchQuestion from "../questionTypes/MatchQuestionTemplate";
 import MemoryMatchQuestion from "../questionTypes/MemoryMatchTypeQuestionTemplate";
+import { Heart } from "lucide-react";
+import { SideBarContext } from "../../../context/sideBarContext";
 export default function QuizSection() {
     const [test, setTest] = useState({});
     const { data, setData } = useContext(QuizDataContext);
+    const { heart } = useContext(SideBarContext);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentComponent, setCurrentComponent] = useState([
         <Test1 />,

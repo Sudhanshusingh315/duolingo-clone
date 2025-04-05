@@ -86,7 +86,7 @@ function App() {
                         }
                     />
                     <Route path="/auth" element={<Auth />} />
-                    <Route path="*" element={<ErrorPage />} />
+                    <Route path='*' element={<ErrorPage />}/>
                 </Routes>
             </BrowserRouter>
             <ToastContainer />

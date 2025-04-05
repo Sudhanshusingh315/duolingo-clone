@@ -15,6 +15,7 @@ export const SideBarDataContextProvider = ({ children }) => {
     // userProgression related stuff
     const [userCourse, setUserCourses] = useState();
 
+    console.log("value of heart from sideBarCompoent", heart);
     const handleNextQuiz = async () => {
         // rest of the details
         // you can get from userProgression

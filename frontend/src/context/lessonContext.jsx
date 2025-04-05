@@ -27,10 +27,9 @@ export const LessonContextProvider = ({ children }) => {
 
     const checkHeartBeat = () => {
         if (heart === 0) {
-            alert("make the modal and end the user");
         }
         setHeart((prev) => {
-            if (prev < 0) return prev;
+            if (prev <= 0) return prev;
             return prev - 1;
         });
     };

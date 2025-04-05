@@ -7,7 +7,7 @@ import MatchGrid from "../../components/Quizes/MatchGrid";
 import MemoryMatch from "../../components/Quizes/MemoryMatch";
 import { ObjectiveType } from "../../components/Quizes/ObjectiveType";
 import { LessonContext } from "../../context/lessonContext";
-import { Check, Plus } from "lucide-react";
+import { Check, Heart, Plus } from "lucide-react";
 import LessonReviewModal from "../../components/Modals/LessonReviewModal";
 import { SideBarContext } from "../../context/sideBarContext";
 const componentMap = {
@@ -40,7 +40,7 @@ export default function Lesson() {
     const answerProgressRef = useRef(0);
     const [showLessonReviewModal, setShowLessonReviewModal] = useState(false);
     let navigate = useNavigate();
-    const { setLessonDoingRn } = useContext(SideBarContext);
+    const { setLessonDoingRn, heart } = useContext(SideBarContext);
     setLessonDoingRn(lessonId);
     // state determining the answers;
     answerProgressRef.current = (currentIndex / quizzes?.length) * 100;
