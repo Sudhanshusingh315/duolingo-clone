@@ -2,13 +2,16 @@ import ReactCountryFlag from "react-country-flag";
 import { constantsConfig, countries } from "../constants";
 import "./styles.css";
 import { useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { SideBarContext } from "../context/sideBarContext";
 import PaymentModal from "./Modals/PaymentModal";
+import { toast } from "react-toastify";
+import { destroyToken } from "../features/auth/auth";
 export default function LanguageList() {
     const { setSelectedLang } = useContext(SideBarContext);
+    const dispatch = useDispatch();
     console.log("use context", setSelectedLang);
     const [myLange, setMyLang] = useState();
     const { accessToken, userInfo } = useSelector((state) => state.auth);
@@ -20,18 +23,26 @@ export default function LanguageList() {
     console.log("my languages", myLange);
     useEffect(() => {
         (async () => {
-            const {
-                data: { data },
-            } = await axios({
-                url: `${constantsConfig.BASE_URL}/api/auth/user/opted-languages`,
-                method: "post",
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            const { language } = data[0];
-            console.log("language", language);
-            setMyLang(language);
+            try {
+                const {
+                    data: { data },
+                } = await axios({
+                    url: `${constantsConfig.BASE_URL}/api/auth/user/opted-languages`,
+                    method: "post",
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+                const { language } = data[0];
+                console.log("language", language);
+                setMyLang(language);
+            } catch (err) {
+                console.log("error", err);
+                const { response } = err;
+
+                toast.error(response?.data?.message, "top-right");
+                dispatch(destroyToken());
+            }
         })();
     }, []);
 

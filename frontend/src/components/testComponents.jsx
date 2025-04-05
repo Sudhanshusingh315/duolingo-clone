@@ -6,6 +6,10 @@ import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { constantsConfig } from "../constants";
 import { SideBarContext } from "../context/sideBarContext";
+import WarningModal from "../components/Modals/WarningModalForNoCourse";
+import duoload from "../assets/duoload.gif";
+import { toast } from "react-toastify";
+import { Popsicle } from "lucide-react";
 
 export default function TestComponents() {
     const dispatch = useDispatch();
@@ -20,8 +24,18 @@ export default function TestComponents() {
     const [languageId, setLanguageId] = useState("");
     const [searchParams, setSearchParams] = useSearchParams();
     const languageCode = searchParams?.get("languageCode");
-
+    const [openWarning, setOpenWarning] = useState(false);
+    console.log("openwarning value", openWarning);
     courses && setUserCourses(courses);
+    useEffect(() => {
+        if (!courses?.length) {
+            setOpenWarning(true);
+            return;
+        } else {
+            setOpenWarning(false);
+            return;
+        }
+    }, [courses]);
     useEffect(() => {
         if (!languageCode) return;
         (async () => {
@@ -32,9 +46,8 @@ export default function TestComponents() {
                 } = await axios({
                     url: `${constantsConfig.BASE_URL}/api/language/get-language/${languageCode}`,
                 });
-                console.log("data", data);
+
                 const { id } = data[0];
-                console.log("langId", id);
 
                 setLanguageId(id);
                 setSelectedLangCode(id);
@@ -47,50 +60,78 @@ export default function TestComponents() {
     useEffect(() => {
         if (!languageId) return;
         console.log("making the api all");
-        dispatch(fetchCourseByLang(languageId));
 
-        (async () => {
-            const {
-                data: { data },
-            } = await axios({
-                url: `${constantsConfig.BASE_URL}/api/auth/user/progression/${languageId}`,
-                method: "get",
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            const { heart } = data[0];
-            setHeart(heart);
-            setUserProgression(data[0]);
-        })();
+        // gets the course from the language
+        dispatch(fetchCourseByLang(languageId));
+        try {
+            (async () => {
+                const {
+                    data: { data },
+                } = await axios({
+                    url: `${constantsConfig.BASE_URL}/api/auth/user/progression/${languageId}`,
+                    method: "get",
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+                const { heart } = data[0];
+                setHeart(heart);
+                setUserProgression(data[0]);
+            })();
+        } catch (err) {
+            const { response } = err;
+            if (response?.data?.message === "invalid token") {
+                toast.error("invalide token", { position: "top-right" });
+            } else {
+                toast.error(response?.data?.message, { position: "top-right" });
+            }
+        }
     }, [languageId]);
 
+    console.log("these are the courses", courses);
+    console.log("openWarning", openWarning);
     return (
         <>
-            {courses?.map(
-                (
-                    {
-                        languageId,
-                        name,
-                        description,
-                        difficultyLevel,
-                        chapters,
-                    },
-                    index
-                ) => {
-                    return (
-                        <React.Fragment key={index}>
-                            <Course
-                                languageId={languageId}
-                                name={name}
-                                description={description}
-                                difficultyLevel={difficultyLevel}
-                                chapters={chapters}
-                            />
-                        </React.Fragment>
-                    );
-                }
-            )}
+            <div>
+                {!courses?.length ? (
+                    <div className="course-loader">
+                        <img src={duoload} />
+                        {/* <WarningModal openWarning={openWarning} /> */}
+                    </div>
+                ) : (
+                    <div>
+                        {courses?.map(
+                            (
+                                {
+                                    languageId,
+                                    name,
+                                    description,
+                                    difficultyLevel,
+                                    chapters,
+                                },
+                                index
+                            ) => {
+                                return (
+                                    <React.Fragment key={index}>
+                                        <Course
+                                            languageId={languageId}
+                                            name={name}
+                                            description={description}
+                                            difficultyLevel={difficultyLevel}
+                                            chapters={chapters}
+                                            setOpenWarning={setOpenWarning}
+                                        />
+                                    </React.Fragment>
+                                );
+                            }
+                        )}
+                    </div>
+                )}
+                <WarningModal
+                    openWarning={openWarning}
+                    setOpenWarning={setOpenWarning}
+                />
+            </div>
         </>
     );
 }

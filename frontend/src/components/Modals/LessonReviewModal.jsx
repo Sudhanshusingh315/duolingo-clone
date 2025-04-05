@@ -2,14 +2,23 @@ import { useContext } from "react";
 import "./styles.css";
 import { SideBarContext } from "../../context/sideBarContext";
 import { useNavigate } from "react-router-dom";
+import { LessonContext } from "../../context/lessonContext";
 export default function LessonReviewModal({ show, setShow }) {
-    const { handleNextQuiz, selectedLang } = useContext(SideBarContext);
+    const { handleNextQuiz, selectedLang, heart, lessonDoingRn } =
+        useContext(SideBarContext);
+    const { setCurrentIndex,setIsCorrectAnswer } = useContext(LessonContext);
     const navigate = useNavigate();
     const next = async () => {
+        console.log("being clicked");
         await handleNextQuiz();
         navigate(`/lesson/course-component?languageCode=${selectedLang}`);
     };
-
+    const playAgain = () => {
+        navigate(`/lessonQuiz/${lessonDoingRn}`);
+        setCurrentIndex(0);
+        setShow(false);
+        setIsCorrectAnswer(null);
+    };
     return (
         show && (
             <div className="dialog">
@@ -37,7 +46,7 @@ export default function LessonReviewModal({ show, setShow }) {
                             TOTAL XP
                             <div className="sub-stat-box" type="heart">
                                 <p>❤️</p>
-                                <p>3</p>
+                                <p>{heart}</p>
                             </div>
                         </div>
                     </div>
@@ -45,6 +54,7 @@ export default function LessonReviewModal({ show, setShow }) {
                         <button
                             className="button text-sm"
                             variant="primary-outline"
+                            onClick={playAgain}
                         >
                             Play again
                         </button>

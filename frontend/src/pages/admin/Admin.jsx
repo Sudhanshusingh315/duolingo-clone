@@ -1,6 +1,6 @@
 import "./admin.css";
 import { Link, Outlet } from "react-router-dom";
-import { Globe, LandPlot, Album, FileQuestion } from "lucide-react";
+import { Globe, LandPlot, Album, FileQuestion, Bird } from "lucide-react";
 import hehe from "../../assets/test.png";
 export default function Admin() {
     return (
@@ -37,7 +37,7 @@ export default function Admin() {
             </div>
             <div className="main-content text-white relative overflow-clip">
                 <Outlet />
-                <img src={hehe} alt="" className="test-img" />
+                <img src={hehe} alt="" className="bottom-right-img" />
             </div>
         </div>
     );

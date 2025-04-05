@@ -2,6 +2,11 @@ export const constantsConfig = {
     BASE_URL: import.meta.env.VITE_BASE_URL,
 };
 
+export const GuestUserCredentials = {
+    userEmail: import.meta.env.VITE_USEREMAIL,
+    userPassword: import.meta.env.VITE_USERPASSWORD,
+};
+
 export const lessonType = {
     OBJECTIVE: "objective",
     MEMORYGAME: "memoryGame",

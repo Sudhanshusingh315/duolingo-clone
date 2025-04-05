@@ -49,7 +49,16 @@ const initialState = {
 export const userAuthSlice = createSlice({
     name: "auth",
     initialState,
-    reducers: {},
+    reducers: {
+        destroyToken(state) {
+            state.accessToken = null;
+            state.userInfo = null;
+            // remove it from localstorage
+
+            localStorage.removeItem("userAccess");
+            localStorage.removeItem("userInfo");
+        },
+    },
     // todo: set the pending and loading state with the later for the shimmer
     extraReducers: (builder) => {
         builder
@@ -93,7 +102,6 @@ export const userAuthSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } =
-    userAuthSlice.actions;
+export const { destroyToken } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;

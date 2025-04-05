@@ -10,30 +10,40 @@ export const SideBarDataContextProvider = ({ children }) => {
     const [userProgression, setUserProgression] = useState(null);
     const { accessToken } = useSelector((state) => state.auth);
     const [heart, setHeart] = useState(0);
-
+    const [lessonDoingRn, setLessonDoingRn] = useState(null);
+    console.log("userProgression", userProgression);
     // userProgression related stuff
     const [userCourse, setUserCourses] = useState();
 
     const handleNextQuiz = async () => {
         // rest of the details
         // you can get from userProgression
-        let { currentCourse } = userProgression;
+        try {
+            let { currentCourse } = userProgression;
 
-        const data = {
-            currentCourse,
-            currentChater: userProgression?.currentChapter,
-            userProgressionId: userProgression._id,
-            heart,
-        };
+            const data = {
+                currentCourse,
+                currentChater: lessonDoingRn,
+                userProgressionId: userProgression._id,
+                heart,
+                completedChapter: userProgression?.completedChaters,
+            };
 
-        const response = await axios({
-            url: `${constantsConfig.BASE_URL}/api/auth/user/progression/endQuiz`,
-            method: "patch",
-            data,
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-        });
+            const response = await axios({
+                url: `${constantsConfig.BASE_URL}/api/auth/user/progression/endQuiz`,
+                method: "patch",
+                data,
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+        } catch (err) {
+            console.log("error", err);
+            const { response } = err;
+
+            toast.error(response?.data?.message, "top-right");
+            dispatch(destroyToken());
+        }
 
         console.log("response", response);
     };
@@ -52,6 +62,8 @@ export const SideBarDataContextProvider = ({ children }) => {
                 handleNextQuiz,
                 selectedLangCode,
                 setSelectedLangCode,
+                lessonDoingRn,
+                setLessonDoingRn,
             }}
         >
             {children}

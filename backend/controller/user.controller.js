@@ -129,9 +129,22 @@ const userProgressionLanguage = async (req, res) => {
 };
 
 const userProgressionEndQuiz = async (req, res) => {
-    const { currentCourse, currentChater, userProgressionId, heart } = req.body;
+    const {
+        currentCourse,
+        currentChater,
+        userProgressionId,
+        heart,
+        completedChapter,
+    } = req.body;
     console.log(req.body);
     let nextChapter, nextCourse;
+    if (completedChapter?.includes(currentChater)) {
+        console.log("here about the currentChapter");
+        return res.status(200).json({
+            success: true,
+            message: "User has done this before",
+        });
+    }
     try {
         const courseInfo = await Course.find({
             _id: currentCourse,
@@ -197,6 +210,16 @@ const userProgressionEndQuiz = async (req, res) => {
         });
     }
     /*
+
+
+
+
+
+
+
+
+
+
     1) get the details 
 
         languageId

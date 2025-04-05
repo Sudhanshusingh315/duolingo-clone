@@ -15,12 +15,13 @@ export default function QuizSection() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentComponent, setCurrentComponent] = useState([
         <Test1 />,
+        <Test5 />,
         <Test2 />,
         <Test3 />,
         <Test4 />,
     ]);
     const steps = [];
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i <= currentComponent?.length - 1; i++) {
         steps.push(
             <div
                 onClick={() => setCurrentIndex(i)}
@@ -36,7 +37,7 @@ export default function QuizSection() {
     const progressBarWidth =
         (100 / (currentComponent?.length - 1)) * currentIndex;
     const handleNext = () => {
-        if (currentIndex >= steps?.length - 1) return;
+        if (currentIndex > steps?.length - 1) return;
         setCurrentIndex((prev) => prev + 1);
     };
     const handlePrev = () => {
@@ -78,7 +79,7 @@ export default function QuizSection() {
             default:
                 break;
         }
-
+        setCurrentIndex(0);
         setData({});
     };
 
@@ -274,6 +275,45 @@ const Test4 = () => {
     return (
         <div className="font-bold text-green-700 text-center p-4">
             {questionToRender(quizType)}
+        </div>
+    );
+};
+
+const Test5 = () => {
+    const { data, setData } = useContext(QuizDataContext);
+    const [selectCourse, setSelectCourse] = useState(null);
+
+    // const [chapter, setChapter] = useState();
+    useEffect(() => {
+        (async () => {
+            const response = await axios({
+                url: `${constantsConfig.BASE_URL}/api/courses/get-course/${data?.language?.id}`,
+            });
+            console.log("response", response?.data?.data);
+            setSelectCourse(response?.data?.data);
+        })();
+    }, []);
+    console.log("selecteCourse", selectCourse);
+    const handleChange = (e, value) => {
+        setData((prev) => {
+            return { ...prev, course: value };
+        });
+    };
+    return (
+        <div className="font-bold text-green-700 text-center p-4">
+            {/* add the languages course */}
+            <h1 className="mb-4 text-2xl">Select the course from below</h1>
+            <Autocomplete
+                options={selectCourse}
+                getOptionLabel={(option) => {
+                    return option?.name || "";
+                }}
+                renderInput={(params) => {
+                    return <TextField {...params} label="Course" />;
+                }}
+                // value={chapter}
+                onChange={handleChange}
+            />
         </div>
     );
 };

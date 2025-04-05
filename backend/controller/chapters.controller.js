@@ -54,6 +54,7 @@ const getChapter = async (req, res) => {
 };
 
 const getAllChapters = async (req, res) => {
+    const {} = req.body
     const chapters = await Chapter.aggregate(getAllChaptersPipeline());
     return res.status(201).json({
         success: true,

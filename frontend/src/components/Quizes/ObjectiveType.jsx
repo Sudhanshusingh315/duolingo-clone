@@ -7,30 +7,30 @@ export const ObjectiveType = ({ data }) => {
     console.log("data objective", data);
     const { question, options, quizType, id } = data;
     return (
-        <div className="min-w-48">
-            <h2 className="text-2xl mb-6 text-center  text-white">
-                {question}
-            </h2>
-            <div className="grid gap-2">
-                {options?.map(({ text, isCorrect }, index) => {
-                    return (
-                        <button
-                            key={index}
-                            className="button"
-                            variant={`${
-                                userAnswer?.text === text
-                                    ? "primary-outline"
-                                    : "primary"
-                            }`}
-                            onClick={() => {
-                                setUserAnswer({ text, isCorrect });
-                            }}
-                        >
-                            {text}
-                        </button>
-                    );
-                })}
-            </div>
+        <div className="min-w-48" >
+                <h2 className="text-2xl mb-6 text-center  text-white">
+                    {question}
+                </h2>
+                <div className="grid gap-2">
+                    {options?.map(({ text, isCorrect }, index) => {
+                        return (
+                            <button
+                                key={index}
+                                className="button"
+                                variant={`${
+                                    userAnswer?.text === text
+                                        ? "primary-outline"
+                                        : "primary"
+                                }`}
+                                onClick={() => {
+                                    setUserAnswer({ text, isCorrect });
+                                }}
+                            >
+                                {text}
+                            </button>
+                        );
+                    })}
+                </div>
         </div>
     );
 };

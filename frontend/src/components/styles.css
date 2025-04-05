@@ -2,6 +2,22 @@
     padding: 1.5em;
     height: 100%;
     overflow-y: auto;
+
+    ::-webkit-scrollbar-track {
+        background-color: red;
+    }
+}
+
+.language-container::-webkit-scrollbar {
+    width: 0.1875rem;
+}
+
+.language-container::-webkit-scrollbar-track {
+    background-color: var(--clr-3);
+}
+
+.language-container::-webkit-scrollbar-thumb {
+    background-color: var(--clr-4);
 }
 
 .language-container-title {
@@ -25,8 +41,8 @@
 .language-box {
     width: 100%;
     display: grid;
-    justify-content: center;
-    align-items: center;
+    gap: .625em;
+    place-content: center; 
     .language-name {
         font-size: large;
     }
@@ -40,7 +56,15 @@
     border-radius: 1.2em;
     aspect-ratio: 1/1;
     cursor: pointer;
+    display: grid;
+    place-content: stretch;
 }
+
+.emoji-box{
+    width: fit-content;
+}
+
+
 
 .selected {
     font-size: 0.625rem;

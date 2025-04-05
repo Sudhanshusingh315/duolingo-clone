@@ -24,6 +24,7 @@ const ChapterSection = () => {
             } = await axios({
                 url: `${constantsConfig.BASE_URL}/api/chapter/get-chapters`,
             });
+
             setAvailableCourses(data);
         })();
     });
@@ -76,7 +77,7 @@ const ChapterSection = () => {
                         onChange={handleChange}
                     />
 
-                    <form onSubmit={handleSubmit}>
+                    <form>
                         <Box sx={{ marginBottom: "15px" }}>
                             <TextField
                                 label="Chapter Title"

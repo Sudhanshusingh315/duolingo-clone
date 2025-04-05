@@ -3,13 +3,37 @@ const Course = require("../models/courseModel");
 
 const addCourse = async (req, res) => {
     // todo: add validation later
-    const { languageId, name, description, difficultyLevel } = req.body;
+    const {
+        languageId,
+        name,
+        description,
+        difficultyLevel,
+        chapterId,
+        courseId,
+    } = req.body;
     try {
+        if (courseId) {
+            const courseUpdate = await Course.findByIdAndUpdate(
+                { _id: courseId },
+                {
+                    $addToSet: { chapters: chapterId },
+                }
+            );
+            console.log("courseUpdate", courseUpdate);
+            if (!courseUpdate) throw new Error("something");
+            return res.status(201).json({
+                success: true,
+                message: "Course created successfully",
+                data: courseUpdate,
+            });
+        }
+
         const course = await Course.create({
             languageId,
             name,
             description,
             difficultyLevel,
+            chapters: [chapterId],
         });
         if (!course) {
             throw new Error("Something bad happened, couldn't save course");
@@ -93,26 +117,8 @@ const getAllCourses = async (req, res) => {
     }
 };
 
-// const addChaptersToCourse = async(req,res)=>{
-//     let {courseId} = req.params;
-
-//     courseId = new mongoose.Types.ObjectId(courseId);
-
-//     const chapter = await Course.findByIdAndUpdate(
-
-//         {
-//             _id:courseId
-//         },
-//         {
-
-//         },
-//         {
-//             new:true
-//         }
-//     )
-// }
-
 module.exports = {
     addCourse,
     getAllCourse,
+    getAllCourses,
 };

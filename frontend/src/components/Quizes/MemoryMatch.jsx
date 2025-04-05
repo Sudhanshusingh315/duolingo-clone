@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import MemoryCard from "./memoryCard";
 import { LessonContext } from "../../context/lessonContext";
-
+import successTwo from "../../assets/succsssTwo.gif";
 export default function MemoryMatch({ data }) {
     const { userAnswerMemoryMatch, setUserAnswerMemoryMatch } =
         useContext(LessonContext);
@@ -90,7 +90,12 @@ export default function MemoryMatch({ data }) {
                 </div>
             ) : (
                 // tdoo: animate this div IMPORTANT
-                <div className="">All answers were marked correct yay!!!</div>
+                <div className="">
+                    <p className="font-bold text-white text-2xl">
+                        All answers were marked correct yay!!!
+                    </p>
+                    <img src={successTwo}  className="w-60 mx-auto"/>
+                </div>
             )}
         </>
     );

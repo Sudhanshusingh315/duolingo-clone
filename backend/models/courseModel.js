@@ -16,15 +16,6 @@ const courseSchema = new Schema({
         type: String,
         required: true,
     },
-    difficultyLevel: {
-        type: String,
-        enum: [
-            difficultyLevel.EASY,
-            difficultyLevel.MEDIUM,
-            difficultyLevel.HARD,
-        ],
-        required: true,
-    },
     chapters: [
         {
             type: mongoose.Schema.Types.ObjectId,

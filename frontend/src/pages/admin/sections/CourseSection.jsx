@@ -15,41 +15,71 @@ const FORMINITIAL = {
     name: "",
     description: "",
     difficultyLevel: "",
+    chapterId: "",
 };
 export default function CourseSection() {
     // todo: make the api protected
     const [availableLanguages, setAvailableLanguages] = useState(null);
     const [selectedCountry, setSelectedCountry] = useState("");
-    const [submitCourse, setSubmitCourse] = useState(false);
+    const [selectedChapter, setSelectedChapter] = useState(null);
+    const [availableChapters, setAvailableChapters] = useState(null);
+    const [availableCourse, setAvailableCourse] = useState(null);
+
     useEffect(() => {
         (async () => {
-            // get the languages, and make em store here.
+            // get the languages, and  store here.
             const {
                 data: { data },
             } = await axios({
                 url: `${constantsConfig.BASE_URL}/api/language/languages`,
                 method: "get",
             });
+
+            const response = await axios({
+                url: `${constantsConfig.BASE_URL}/api/chapter/get-chapters`,
+            });
+
+            const responseAvailableCourse = await axios({
+                url: `${constantsConfig.BASE_URL}/api/courses/get-courses`,
+            });
+            setAvailableCourse(responseAvailableCourse?.data?.data);
+            setAvailableChapters(response?.data?.data);
             setAvailableLanguages(data);
         })();
     }, []);
-
+    console.log("available course", availableCourse);
     const [form, setForm] = useState(FORMINITIAL);
 
     const handleChange = (e, value) => {
         if (value?.name) {
             const { id } = value;
-            setForm({ ...form, language: id });
+            console.log("if function block");
+            setForm({ ...form, languageId: id });
+            setSelectedCountry(value);
             return;
         }
 
         setForm({ ...form, [e.target.name]: e.target.value });
     };
-
+    console.log("form", form);
     const handleChapterChange = (index, value) => {
         const newChapters = [...form.chapters];
         newChapters[index] = value;
         setForm({ ...form, chapters: newChapters });
+    };
+
+    const handleChangeCourse = (e, value) => {
+        console.log("selected chapter", value);
+        setForm((prev) => {
+            return { ...prev, chapterId: value?.courseId };
+        });
+    };
+
+    const handleCourseChange = (e, value) => {
+        console.log("value", value);
+        setForm((prev) => {
+            return { ...prev, courseId: value?._id };
+        });
     };
 
     const handleSubmitCourse = async () => {
@@ -88,13 +118,38 @@ export default function CourseSection() {
                     >
                         Create a Course
                     </Typography>
+                    <Typography
+                        variant="h5"
+                        component="div"
+                        sx={{ fontWeight: "bold", marginBottom: "20px" }}
+                    >
+                        Want to add a Chapter to a Course?
+                    </Typography>
+                    <Autocomplete
+                        options={availableCourse}
+                        getOptionLabel={(option) => option?.name || ""}
+                        renderInput={(params) => {
+                            return (
+                                <TextField
+                                    {...params}
+                                    label="Available Courses"
+                                />
+                            );
+                        }}
+                        // value={selectedCountry}
+                        onChange={handleCourseChange}
+                        sx={{
+                            marginBottom: "15px",
+                        }}
+                    />
+                    <hr className="my-4" />
                     <Autocomplete
                         options={availableLanguages}
                         getOptionLabel={(option) => option?.name || ""}
                         renderInput={(params) => {
                             return <TextField {...params} label="Counteris" />;
                         }}
-                        value={selectedCountry}
+                        // value={selectedCountry}
                         onChange={handleChange}
                         sx={{
                             marginBottom: "15px",
@@ -122,21 +177,18 @@ export default function CourseSection() {
                         rows={3}
                         fullWidth
                     />
-                    <TextField
-                        select
-                        label="Difficulty Level"
-                        name="difficultyLevel"
-                        value={form.difficultyLevel}
-                        onChange={handleChange}
-                        fullWidth
-                        sx={{
+                    <Autocomplete
+                        options={availableChapters}
+                        getOptionLabel={(option) => option?.title || ""}
+                        style={{
                             marginBottom: "15px",
                         }}
-                    >
-                        <MenuItem value="Easy">Easy</MenuItem>
-                        <MenuItem value="Medium">Medium</MenuItem>
-                        <MenuItem value="Hard">Hard</MenuItem>
-                    </TextField>
+                        renderInput={(params) => {
+                            return <TextField {...params} label="Course" />;
+                        }}
+                        // value={course}
+                        onChange={handleChangeCourse}
+                    />
                     <button
                         className="button"
                         variant="secondary"

@@ -3,7 +3,7 @@ import LessonButton from "./LessonButton";
 import { SideBarContext } from "../context/sideBarContext";
 import { useNavigate } from "react-router";
 import PlayAgainModal from "../modals/playAgainModal";
-export default function Course({ name, chapters }) {
+export default function Course({ name, chapters,setOpenWarning }) {
     // gonna get the title here
     // gonna get the chapters here so render those from here.
     const { userProgression } = useContext(SideBarContext);
@@ -51,6 +51,7 @@ export default function Course({ name, chapters }) {
                             }
                             completedChaters={userProgression?.completedChaters}
                             handleNavigation={handleNavigation}
+                            setOpenWarning={setOpenWarning}
                         />
                     );
                 })}

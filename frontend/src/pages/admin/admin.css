@@ -1,4 +1,4 @@
-body {
+#root {
     background-color: #333;
 }
 .grid-admin {
@@ -31,14 +31,15 @@ body {
     grid-column-start: 2;
     grid-column-end: -1;
     background-color: var(--clr-2);
+    padding-inline: 1rem;
 }
 
-.grid:has(.sidebar:hover) {
+.grid-admin:has(.sidebar:hover) {
     grid-template-columns: 10rem auto;
 }
 
-.test-img {
-    width: 200px;
+.bottom-right-img {
+    width: 250px;
     position: absolute;
     bottom: -10px;
     right: -50px;

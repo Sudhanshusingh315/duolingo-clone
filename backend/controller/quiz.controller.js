@@ -7,7 +7,7 @@ const Chapter = require("../models/chapterModel");
 const Course = require("../models/courseModel");
 
 const addObjectiveQuiz = async (req, res) => {
-    const { chapter, question, options } = req.body;
+    const { chapter, question, options, course } = req.body;
     try {
         let { id } = chapter;
         id = new mongoose.Types.ObjectId(id);
@@ -24,7 +24,11 @@ const addObjectiveQuiz = async (req, res) => {
             question,
             options,
         });
-        const updatedCourse = await Chapter.findOneAndUpdate(
+
+        // const updateCouse = await Course.findByIdAndUpdate({
+        // })
+
+        const updatedChapter = await Chapter.findOneAndUpdate(
             {
                 _id: id,
             },

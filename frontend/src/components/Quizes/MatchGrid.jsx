@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { LessonContext } from "../../context/lessonContext";
+import successOne from "../../assets/successOne.webp";
 
 export default function MatchGrid({ data }) {
     const { setUserAnswerMatch } = useContext(LessonContext);
@@ -153,7 +154,9 @@ export default function MatchGrid({ data }) {
                     </div>
                 </div>
             ) : (
-                <div>game over hehe</div>
+                <div>
+                    <img src={successOne} className="w-50" alt="" />
+                </div>
             )}
         </div>
     );
