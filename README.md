@@ -49,3 +49,5 @@ Lingo is a duolingo clone built with MERN stack
 # Register Page
 <img src="./frontend/src/assets/project-screenshot/register.png">
 
+# 404 Page
+<img src="./frontend/src/assets/project-screenshot/duo404.png">
