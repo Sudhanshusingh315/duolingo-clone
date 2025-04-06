@@ -3,10 +3,23 @@
 Lingo is a duolingo clone built with MERN stack
 
 
-# Quiz page
 
+
+# Front Page
+https://github.com/user-attachments/assets/074712d2-5d97-4882-8b9a-b3fc23307614
+
+# Quiz page
 <h3>Wide screen</h3>
 <img src="./frontend/src/assets/project-screenshot/quizPage.png">
+
+# Quiz Demo
+
+
+https://github.com/user-attachments/assets/a9452803-9217-4598-b644-82d53c82d674
+
+
+
+
 
 <h3>Mobile View</h3>
 <img src="./frontend/src/assets/project-screenshot/quizPageMobile.png">
