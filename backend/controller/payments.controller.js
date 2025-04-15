@@ -116,7 +116,7 @@ const paymentVerification = async (req, res) => {
 const success = async (req, res) => {
     const { hearts } = req.params;
     res.redirect(
-        `https://duolingo-clone-git-main-leaderofmeows-projects.vercel.app//lesson/lang-course?payment=true&hearts=${hearts}`
+        `https://duolingo-clone-git-main-leaderofmeows-projects.vercel.app/lesson/lang-course?payment=true&hearts=${hearts}`
     );
 };
 
