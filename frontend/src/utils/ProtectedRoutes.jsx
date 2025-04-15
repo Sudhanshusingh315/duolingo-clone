@@ -8,7 +8,7 @@ export default function ProctedRoute() {
 
     useEffect(() => {
         if (!userInfo) {
-            navigate("/auth");
+            navigate("/auth?isLogin=true");
         }
     }, [userInfo]);
 
