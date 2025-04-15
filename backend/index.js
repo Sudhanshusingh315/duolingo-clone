@@ -16,7 +16,8 @@ const corsOptions = {
     methods: ["GET", "POST", "PUT", "PATCH"],
 };
 const app = express();
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB

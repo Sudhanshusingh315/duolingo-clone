@@ -11,31 +11,35 @@ const {
 const { default: mongoose } = require("mongoose");
 
 const checkout = async (req, res) => {
-    const userId = req.body.userId;
-    console.log("userId", userId);
-    const { amount: noOfHearts, userLangId } = req.body;
-    if (!userLangId) throw new Error("wrong language selected");
-    const options = {
-        amount: Number(noOfHearts * 100), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-        currency: "INR",
-    };
-    const order = await instance.orders.create(options);
-    const { amount, id } = order;
-    const ordeCreatedDB = await Purchase.create({
-        amount,
-        orderId: id,
-        paymentStatus: STATUS.PENDING,
-        userId,
-        userLang: new mongoose.Types.ObjectId(userLangId),
-    });
-    console.log("order created at DB", ordeCreatedDB);
-    // one you have order, store this in db
-    console.log("order", order);
-    res.status(200).json({
-        success: true,
-        key: configEnv.razorpay_id,
-        data: order,
-    });
+    try {
+        const userId = req.body.userId;
+        console.log("userId", userId);
+        const { amount: noOfHearts, userLangId } = req.body;
+        if (!userLangId) throw new Error("wrong language selected");
+        const options = {
+            amount: Number(noOfHearts * 100), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            currency: "INR",
+        };
+        const order = await instance.orders.create(options);
+        const { amount, id } = order;
+        const ordeCreatedDB = await Purchase.create({
+            amount,
+            orderId: id,
+            paymentStatus: STATUS.PENDING,
+            userId,
+            userLang: new mongoose.Types.ObjectId(userLangId),
+        });
+        console.log("order created at DB", ordeCreatedDB);
+        // one you have order, store this in db
+        console.log("order", order);
+        res.status(200).json({
+            success: true,
+            key: configEnv.razorpay_id,
+            data: order,
+        });
+    } catch (err) {
+        console.log("error", err);
+    }
 };
 
 const paymentVerification = async (req, res) => {
