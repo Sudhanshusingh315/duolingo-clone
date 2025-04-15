@@ -33,7 +33,7 @@ export default function ShopSection() {
             currency,
             name: "Lingo",
             order_id: id, // This is the order_id created in the backend
-            callback_url: `http://localhost:5000/api/payments/success/${hearts}`, // Your success URL
+            callback_url: `${constantsConfig.BASE_URL}/api/payments/success/${hearts}`, // Your success URL
             prefill: {
                 name: userInfo.email,
                 email: userInfo.email,
