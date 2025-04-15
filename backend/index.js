@@ -13,6 +13,7 @@ const corsOptions = {
         }
     },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH"],
 };
 const app = express();
 app.use(cors(corsOptions));
