@@ -7,7 +7,6 @@ export default function DragDropSortGame({ data }) {
         useContext(LessonContext);
     const [dragWords, setDragWords] = useState(null);
     const dragItem = useRef(null);
-    console.log("this is user drop answerl", userAnswerDragAndDrop);
     useEffect(() => {
         // clear all the previous states;
         // todo: test with these removed, i don't think we need this, since it's changing the state and now updating it
@@ -38,7 +37,6 @@ export default function DragDropSortGame({ data }) {
         target.classList.remove("test");
     };
     const handleDragCapture = (e, captureContainer) => {
-        console.log("capture", captureContainer);
         const draggingItem = dragItem.current;
 
         // to remove the item from the parent

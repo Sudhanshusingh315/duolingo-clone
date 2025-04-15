@@ -12,7 +12,6 @@ import { destroyToken } from "../features/auth/auth";
 export default function LanguageList() {
     const { setSelectedLang } = useContext(SideBarContext);
     const dispatch = useDispatch();
-    console.log("use context", setSelectedLang);
     const [myLange, setMyLang] = useState();
     const { accessToken, userInfo } = useSelector((state) => state.auth);
     const navigate = useNavigate();
@@ -20,7 +19,6 @@ export default function LanguageList() {
     const payment = searchParams?.get("payment");
     const hearts = searchParams?.get("hearts");
     const [showPayment, setShowPayment] = useState(payment);
-    console.log("my languages", myLange);
     useEffect(() => {
         (async () => {
             try {
@@ -34,7 +32,6 @@ export default function LanguageList() {
                     },
                 });
                 const { language } = data[0];
-                console.log("language", language);
                 setMyLang(language);
             } catch (err) {
                 console.log("error", err);
@@ -47,7 +44,6 @@ export default function LanguageList() {
     }, []);
 
     const handleAddLanguage = async (code) => {
-        console.log(userInfo);
         const {
             data: { data },
         } = await axios({

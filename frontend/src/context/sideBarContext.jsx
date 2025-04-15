@@ -11,11 +11,9 @@ export const SideBarDataContextProvider = ({ children }) => {
     const { accessToken } = useSelector((state) => state.auth);
     const [heart, setHeart] = useState(0);
     const [lessonDoingRn, setLessonDoingRn] = useState(null);
-    console.log("userProgression", userProgression);
     // userProgression related stuff
     const [userCourse, setUserCourses] = useState();
 
-    console.log("value of heart from sideBarCompoent", heart);
     const handleNextQuiz = async () => {
         // rest of the details
         // you can get from userProgression
@@ -45,8 +43,6 @@ export const SideBarDataContextProvider = ({ children }) => {
             toast.error(response?.data?.message, "top-right");
             dispatch(destroyToken());
         }
-
-        console.log("response", response);
     };
 
     return (

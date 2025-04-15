@@ -24,12 +24,10 @@ export default function MemoryMatch({ data }) {
     useEffect(() => {
         if (won === 0) return;
         if (won === cards?.length) {
-            console.log("you have won the game");
             setUserAnswerMemoryMatch(true);
         }
     }, [won]);
 
-    console.log(won);
     const shuffleCards = () => {
         setCards((prev) => {
             return data?.options?.sort(() => Math.round(Math.random()) - 0.5);
@@ -41,7 +39,6 @@ export default function MemoryMatch({ data }) {
     };
 
     const checkForAMatch = () => {
-        console.log("i will now check for the match");
         if (choiseOne?.meaning === choiseTwo?.meaning) {
             setCards((prev) => {
                 return prev.map((element, index) => {
@@ -94,7 +91,7 @@ export default function MemoryMatch({ data }) {
                     <p className="font-bold text-white text-2xl">
                         All answers were marked correct yay!!!
                     </p>
-                    <img src={successTwo}  className="w-60 mx-auto"/>
+                    <img src={successTwo} className="w-60 mx-auto" />
                 </div>
             )}
         </>

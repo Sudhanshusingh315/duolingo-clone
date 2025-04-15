@@ -26,7 +26,6 @@ export default function TestComponents() {
     const [searchParams, setSearchParams] = useSearchParams();
     const languageCode = searchParams?.get("languageCode");
     const [openWarning, setOpenWarning] = useState(false);
-    console.log("openwarning value", openWarning);
     courses && setUserCourses(courses);
     useEffect(() => {
         if (!courses?.length) {
@@ -40,7 +39,6 @@ export default function TestComponents() {
     useEffect(() => {
         if (!languageCode) return;
         (async () => {
-            console.log("woking");
             try {
                 const {
                     data: { data },
@@ -60,7 +58,6 @@ export default function TestComponents() {
 
     useEffect(() => {
         if (!languageId) return;
-        console.log("making the api all");
 
         // gets the course from the language
         dispatch(fetchCourseByLang(languageId));
@@ -88,9 +85,6 @@ export default function TestComponents() {
             }
         }
     }, [languageId]);
-    console.log("heart value from userPorgression api ", heart);
-    console.log("these are the courses", courses);
-    console.log("openWarning", openWarning);
     return (
         <>
             <div>

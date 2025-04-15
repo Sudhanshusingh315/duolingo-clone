@@ -23,7 +23,6 @@ export const LessonContextProvider = ({ children }) => {
     // user Progression
 
     const { heart, setHeart } = useContext(SideBarContext);
-    console.log("use context in lesson", useContext(SideBarContext));
 
     const checkHeartBeat = () => {
         if (heart === 0) {
@@ -41,23 +40,19 @@ export const LessonContextProvider = ({ children }) => {
 
         switch (quizType) {
             case lessonType.OBJECTIVE:
-                console.log(currentQuiz);
                 const { options } = currentQuiz;
                 const matchedItem = options?.find(
                     (item) => item?.text === userAnswer?.text
                 );
                 if (matchedItem?.isCorrect) {
-                    console.log("correct answer");
                     setIsCorrectAnswer(true);
                 } else {
-                    console.log("wrong answer");
                     setIsCorrectAnswer(false);
                     checkHeartBeat();
                 }
                 // will check for answers like this
                 break;
             case lessonType.DRAGANDDROP:
-                console.log("usersAnswer", userAnswerDragAndDrop);
                 let failedAlready = false;
                 const isInvalidState = (userAnswerDragAndDrop) => {
                     return userAnswerDragAndDrop &&
@@ -91,7 +86,6 @@ export const LessonContextProvider = ({ children }) => {
             case lessonType.MATCH:
                 // will check for answers like this
                 if (!userAnswerMatch) {
-                    console.log("inside the match case");
                     setIsCorrectAnswer(false);
                     checkHeartBeat();
                 }
@@ -110,7 +104,6 @@ export const LessonContextProvider = ({ children }) => {
         setMoveToNext(true);
         setUserAnswer(null);
     };
-    console.log("userAnswerMatch", userAnswerMatch);
     return (
         <LessonContext.Provider
             value={{

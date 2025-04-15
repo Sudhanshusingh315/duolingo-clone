@@ -6,14 +6,12 @@ export const userRegister = createAsyncThunk(
     "auth/userRegister",
     async (data) => {
         // write your api here
-        console.log("registering api");
         try {
             const response = await axios({
                 url: `${constantsConfig.BASE_URL}/api/auth/user-register`,
                 method: "post",
                 data,
             });
-            console.log("from auth thunk");
             return response?.data;
         } catch (error) {
             console.log("error", error);
@@ -23,14 +21,12 @@ export const userRegister = createAsyncThunk(
 
 export const userLogin = createAsyncThunk("auth/userLogin", async (data) => {
     // write your api here
-    console.log("registering api");
     try {
         const response = await axios({
             url: `${constantsConfig.BASE_URL}/api/auth/user-login`,
             method: "post",
             data,
         });
-        console.log("from auth thunk");
         return response?.data;
     } catch (error) {
         console.log("error", error);
@@ -63,7 +59,6 @@ export const userAuthSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(userRegister.fulfilled, (state, action) => {
-                console.log("action from fulfilled", state, action);
                 state.userInfo = action?.payload;
                 state.accessToken = action?.payload?.accessToken;
 
@@ -79,10 +74,7 @@ export const userAuthSlice = createSlice({
                     );
                 }
             })
-            .addCase(userRegister.rejected, (state, action) => {
-                console.log(action);
-                console.log("api failed due to some reasone");
-            })
+            .addCase(userRegister.rejected, (state, action) => {})
             .addCase(userLogin.fulfilled, (state, action) => {
                 state.userInfo = action?.payload?.data;
                 state.accessToken = action.payload?.accessToken;

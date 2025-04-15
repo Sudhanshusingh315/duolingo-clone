@@ -15,7 +15,6 @@ export default function MatchGrid({ data }) {
     );
     const [wrongAnswer, setWrongAnswer] = useState(null);
 
-    console.log("select pair", selectedPair);
     const handleSelect = (data) => {
         setSelectePair((prev) => {
             if (!prev.text || !prev.match) {
@@ -55,8 +54,6 @@ export default function MatchGrid({ data }) {
 
         matchColumns?.map((element, index) => {
             const { text, match } = element;
-            console.log("meow match", element);
-            console.log("selected pair", selectedPair);
             if (selectedPair?.text === text && selectedPair?.match === match) {
                 console.log("found the match at index", index);
                 matchedItemIndex = index;
@@ -73,13 +70,11 @@ export default function MatchGrid({ data }) {
             }
         });
 
-        console.log("matchedItemIndex", matchedItemIndex);
         setMatchColumns((prev) => {
             return prev?.filter((_, index) => matchedItemIndex != index);
         });
     };
 
-    console.log(selectedPair);
     return (
         <div className="grid">
             <h2 className="text-center font-semibold text-white text-xl">

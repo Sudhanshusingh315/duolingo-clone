@@ -44,7 +44,7 @@ Lingo is a duolingo clone built with MERN stack
 <img src="./frontend/src/assets/project-screenshot/shopPage.png">
 
 # Buying hearts
-<img src="./frontend/src/assets/project-screenshot/buyingHearts.png">
+<img src="./frontend/src/assets/project-screenshot/buyingHearts.pngex">
 
 
 

@@ -38,9 +38,6 @@ function DragAndDropTypeQuesiton() {
             setBucketName("");
         }
     };
-    console.log("buckets", buckets);
-    console.log("items", items);
-    console.log("data ", data);
     // Add new item to selected bucket
     const addItem = () => {
         if (selectedBucket && newItem.trim()) {

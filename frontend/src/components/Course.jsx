@@ -3,14 +3,13 @@ import LessonButton from "./LessonButton";
 import { SideBarContext } from "../context/sideBarContext";
 import { useNavigate } from "react-router";
 import PlayAgainModal from "../modals/playAgainModal";
-export default function Course({ name, chapters,setOpenWarning }) {
+export default function Course({ name, chapters, setOpenWarning }) {
     // gonna get the title here
     // gonna get the chapters here so render those from here.
     const { userProgression } = useContext(SideBarContext);
     const [completedLessonId, setCompletedLessonId] = useState(null);
 
     const [openPopUp, setOpenPopUp] = useState(false);
-    console.log("userProgression ", userProgression);
     const navigation = useNavigate();
     const handleNavigation = (lessonId) => {
         if (userProgression?.completedChaters?.includes(lessonId)) {
