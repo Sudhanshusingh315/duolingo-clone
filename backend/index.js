@@ -2,18 +2,17 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const session = require("express-session");
 const { configEnv } = require("./constants");
 
-const app = express();
-app.use(cors());
-app.use(express.json());
 const corsOptions = {
     origin: [
         "https://duolingo-clone-git-main-leaderofmeows-projects.vercel.app",
     ],
     credentials: true,
 };
+const app = express();
+app.use(cors(corsOptions));
+app.use(express.json());
 
 // Connect to MongoDB
 main().catch((err) => console.log(err));
