@@ -1,23 +1,20 @@
 require("dotenv").config();
 const express = require("express");
-const passport = require("passport");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const session = require("express-session");
 const { configEnv } = require("./constants");
 
 const app = express();
+app.use(cors());
 app.use(express.json());
-app.use(
-    session({
-        // todo: add from evn, testing for now
-        secret: "dafjdalk",
-        resave: false,
-        saveUninitialized: false,
-    })
-);
-app.use(passport.initialize());
-app.use(passport.session());
+const corsOptions = {
+    origin: [
+        "https://duolingo-clone-git-main-leaderofmeows-projects.vercel.app",
+    ],
+    credentials: true,
+};
+
 // Connect to MongoDB
 main().catch((err) => console.log(err));
 
@@ -26,7 +23,6 @@ async function main() {
     console.log("mongoose connected");
 }
 // Import Routes
-app.use(cors());
 
 const courseRoutes = require("./routes/course.route");
 const languageRoutes = require("./routes/language.route");
